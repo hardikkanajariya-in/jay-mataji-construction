@@ -20,53 +20,6 @@ export default function ProjectsPage() {
         breadcrumbs={[{ label: "Project Experience" }]}
       />
 
-      {/* Register Summary Strip */}
-      <section className="bg-white border-b border-[#DCE2E5] py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-xs sm:text-sm">
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#155497]/10 text-[#155497]">
-                <IconShield className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-bold text-[#292929]">49 Recorded Jobs</div>
-                <div className="text-[11px] text-[#5A6A78]">Complete chronological register</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#155497]/10 text-[#155497]">
-                <IconCalendar className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-bold text-[#292929]">2014 &ndash; 2026 Timeline</div>
-                <div className="text-[11px] text-[#5A6A78]">Over a decade of unbroken service</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#155497]/10 text-[#155497]">
-                <IconMapPin className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-bold text-[#292929]">Pan-India Coverage</div>
-                <div className="text-[11px] text-[#5A6A78]">10+ Indian industrial states</div>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="p-2 rounded-lg bg-[#155497]/10 text-[#155497]">
-                <IconUsers className="w-5 h-5" />
-              </div>
-              <div>
-                <div className="font-bold text-[#292929]">Up to 500 Manpower</div>
-                <div className="text-[11px] text-[#5A6A78]">Peak single-job batch deployments</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Main Interactive Explorer */}
       <section className="bg-[#EEF1F2] py-12 lg:py-20 border-b border-[#DCE2E5]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

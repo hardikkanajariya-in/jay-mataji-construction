@@ -187,30 +187,6 @@ export function ProjectExplorer() {
             </select>
           </div>
         </div>
-
-        {/* Filter Summary Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-4 mt-4 border-t border-[#DCE2E5] text-xs">
-          <div className="flex items-center gap-4 text-[#5A6A78]">
-            <span>
-              Showing <strong className="text-[#292929]">{filteredProjects.length}</strong> of{" "}
-              <strong className="text-[#292929]">{projectsData.length}</strong> turnaround contracts
-            </span>
-            <span className="hidden sm:inline text-slate-300">|</span>
-            <span className="hidden sm:inline">
-              Cumulative Mobilization: <strong className="text-[#155497]">{totalFilteredManpower} Personnel</strong>
-            </span>
-          </div>
-
-          {hasActiveFilters && (
-            <button
-              type="button"
-              onClick={handleResetFilters}
-              className="inline-flex items-center gap-1 font-semibold text-[#F28A00] hover:text-[#d97c00] underline"
-            >
-              <span>Reset active filters</span>
-            </button>
-          )}
-        </div>
       </div>
 
       {/* Results Grid */}
@@ -236,7 +212,16 @@ export function ProjectExplorer() {
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
-              className="bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs hover:border-[#155497]/50 hover:shadow-sm transition-all flex flex-col justify-between"
+              role="button"
+              tabIndex={0}
+              onClick={() => setInspectingRecord(proj)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  setInspectingRecord(proj);
+                }
+              }}
+              className="bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs hover:border-[#155497]/50 hover:shadow-sm transition-all flex flex-col justify-between cursor-pointer focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#155497]"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -273,13 +258,6 @@ export function ProjectExplorer() {
                   <span className="text-[#5A6A78] block text-[11px]">Duration &bull; Crew</span>
                   <span className="font-semibold text-[#292929]">{proj.period} &bull; {proj.manpowerQty} MP</span>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setInspectingRecord(proj)}
-                  className="px-3.5 py-1.5 rounded-lg bg-[#EEF1F2] hover:bg-[#155497] hover:text-white text-[#155497] font-semibold text-xs transition-colors"
-                >
-                  Inspect
-                </button>
               </div>
             </div>
           ))}
@@ -298,19 +276,6 @@ export function ProjectExplorer() {
             className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <button
-              type="button"
-              onClick={() => setInspectingRecord(null)}
-              className="absolute top-5 right-5 p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
-              aria-label="Close record modal"
-            >
-              <IconX className="w-5 h-5" />
-            </button>
-
-            <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#155497]/10 text-[#155497] text-xs font-bold mb-3">
-              <span>Historical Register &bull; Outage Contract #{inspectingRecord.srNo}</span>
-            </div>
-
             <h3 className="text-xl font-extrabold text-[#292929] mb-4 leading-snug">
               {inspectingRecord.jobDescription}
             </h3>
@@ -337,9 +302,6 @@ export function ProjectExplorer() {
               <div className="pt-2 border-t border-[#DCE2E5]">
                 <span className="text-[#5A6A78] block text-xs">Trade Crew Deployed:</span>
                 <span className="font-bold text-[#155497] text-base">{inspectingRecord.manpowerQty} Technical Manpower</span>
-                <span className="text-[11px] text-[#5A6A78] block mt-0.5">
-                  Dedicated trade crew mobilized for this turnaround outage.
-                </span>
               </div>
             </div>
 

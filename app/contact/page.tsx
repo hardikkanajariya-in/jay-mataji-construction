@@ -42,7 +42,7 @@ export default function ContactPage() {
                       <IconMail className="w-4 h-4" />
                     </div>
                     <div>
-                      <span className="font-bold text-[#292929] block">Operations Dispatch Email</span>
+                      <span className="font-bold text-[#292929] block">Contact Email</span>
                       <a
                         href={`mailto:${companyData.contactEmail}`}
                         className="text-[#155497] hover:underline break-all"
