@@ -229,17 +229,6 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
 
               {/* Bottom Equipment Tags & Actions */}
               <div className="p-6 pt-0 mt-2">
-                <div className="p-3 bg-[#F8FAFC] rounded-lg border border-[#DCE2E5] text-xs">
-                  <span className="font-bold text-[#292929] block mb-1">Equipment Handled:</span>
-                  <div className="flex flex-wrap gap-1">
-                    {service.equipmentHandled.map((eq, i) => (
-                      <span key={i} className="px-2 py-0.5 rounded bg-white border border-[#DCE2E5] text-[#5A6A78] text-[10px]">
-                        {eq}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-
                 <div className="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
                   <button
                     type="button"
@@ -366,7 +355,7 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
               </div>
 
               <div className="p-4 rounded-xl bg-slate-50 border border-[#DCE2E5] text-xs text-[#5A6A78]">
-                <strong className="text-[#292929]">Operational Note:</strong> Turnaround crews mobilize with complete positive blinding matrices, calibrated hydraulic torque wrenches, tube pullers, hydro jetting trailers, and 700+ trade roster.
+                <strong className="text-[#292929]">Operational Note:</strong> We have available specialized tools and trackers for executing all turnaround and shutdown jobs mentioned above. Over 700 skilled manpower available at any time, with rapid mobilization to arrange additional manpower per client requirement.
               </div>
             </div>
 
