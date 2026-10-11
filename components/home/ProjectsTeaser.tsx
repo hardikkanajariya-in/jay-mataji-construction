@@ -86,30 +86,6 @@ export function ProjectsTeaser() {
             </div>
           ))}
         </div>
-
-        {/* Callout Strip */}
-        <div className="bg-gradient-to-r from-white via-white to-[#F0F5FA] rounded-xl border border-[#DCE2E5] p-6 shadow-2xs hover:border-[#155497]/30 transition-all flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg bg-[#155497] text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-xs">
-              49
-            </div>
-            <div>
-              <div className="text-sm font-bold text-[#292929]">
-                Full Historical Project Archive Available
-              </div>
-              <div className="text-xs text-[#5A6A78]">
-                Interactive filtering by year (2014–2026), refinery unit, contractor, and recorded scope.
-              </div>
-            </div>
-          </div>
-          <Link
-            href="/projects/"
-            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#155497] hover:bg-[#123A68] text-white text-xs font-semibold px-5 py-3 rounded-md shadow-xs hover:shadow transition-all"
-          >
-            <span>Launch Project Experience Explorer</span>
-            <IconChevronRight className="w-3.5 h-3.5 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-0.5" />
-          </Link>
-        </div>
       </div>
     </section>
   );

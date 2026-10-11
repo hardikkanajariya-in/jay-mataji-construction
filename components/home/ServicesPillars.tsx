@@ -25,7 +25,7 @@ export function ServicesPillars() {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionHeader
             badge="Industrial Capabilities"
-            title="Comprehensive Shutdown & Maintenance Services"
+            title="Our Shutdown & Maintenance Services"
             description="Proven execution across static process units, rotating assemblies, and high-elevation refinery infrastructure with specialized tooling and experienced manpower."
             className="mb-0!"
           />

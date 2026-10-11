@@ -87,11 +87,6 @@ export function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
           {/* Left Column: Industrial Copy */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-white/80 backdrop-blur-xs text-[#155497] border border-[#155497]/20 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#F28A00] animate-pulse"></span>
-              <span>Shutdown &amp; Maintenance Solutions</span>
-            </div>
-
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold text-[#292929] tracking-tight leading-[1.15]">
               Shutdown Readiness.{" "}
               <span className="text-[#155497] relative inline-block">
