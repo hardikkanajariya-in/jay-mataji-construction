@@ -48,9 +48,11 @@ export function AboutSnippet() {
 
           {/* Text Column */}
           <div className="lg:col-span-7 order-1 lg:order-2 space-y-5">
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider bg-[#155497]/10 text-[#155497] border border-[#155497]/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#F28A00]"></span>
-              <span>About Jay Mataji Construction</span>
+            <div className="flex items-center gap-2.5">
+              <span className="w-7 h-0.5 bg-[#F28A00] rounded-full" aria-hidden="true" />
+              <span className="text-xs font-bold uppercase tracking-wider text-[#155497]">
+                About Jay Mataji Construction
+              </span>
             </div>
 
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#292929] tracking-tight leading-tight">
