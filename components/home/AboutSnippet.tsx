@@ -85,7 +85,7 @@ export function AboutSnippet() {
                 href="/about/"
                 className="group inline-flex items-center gap-2 bg-[#155497] hover:bg-[#123A68] active:scale-[0.99] text-white font-semibold px-5 py-3 rounded-md text-sm shadow-xs hover:shadow transition-all"
               >
-                <span>Read Full Company Profile</span>
+                <span>Our Company Profile</span>
                 <IconChevronRight className="w-4 h-4 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-0.5" />
               </Link>
             </div>
