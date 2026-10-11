@@ -39,4 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-data
+
+# raw data references (preserve data/*.ts modules)
+data/*.csv
+data/*.htm
+data/*_files/
