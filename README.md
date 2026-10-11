@@ -33,7 +33,6 @@ A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTIO
 | `/` | **Home** | Editorial hero, verified proof strip, core service pillars, interactive 5-phase shutdown workflow, equipment diagrams, curated project highlights, about snippet, and enquiry CTA. |
 | `/about/` | **About Us** | Corporate background (Est. 2014), operational scope, pan-India refinery footprint (Jamnagar, Mangalore, Mumbai, Vizag, Vadinar, Bhatinda, Barauni, Haldia, Kochi, Assam, Nagothane). |
 | `/services/` | **Services** | 12 documented service packages categorized into Static Equipment, Rotating & Mechanical Servicing, and Site Execution & Manpower. |
-| `/shutdown-turnaround/` | **Shutdown & Turnaround** | Interactive equipment selector & work-scope explorer (Heat Exchangers, Columns, Reactors, Vessels, Furnaces, Valves, Pumps, Compressors, Cooling Towers) with detailed tasks (blinding, opening, jetting, testing, box-up). |
 | `/projects/` | **Project Experience** | Data-driven interactive project register of all 49 contracts with real-time text search, year filter (2014–2026), category filter, sorting, and record detail inspector modal. |
 | `/contact/` | **Contact & Mobilization** | Practical industrial requisition form with input validation and static-compatible pre-formatted `mailto:` dispatch to operations. |
 

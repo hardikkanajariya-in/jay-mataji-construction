@@ -178,7 +178,7 @@ export function EquipmentShowcase() {
             className="mb-0!"
           />
           <Link
-            href="/shutdown-turnaround/"
+            href="/services/"
             className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-sm font-bold text-[#155497] hover:text-[#123A68] hover:underline"
           >
             <span>Full Turnaround Scope Details</span>
@@ -453,7 +453,7 @@ export function EquipmentShowcase() {
                 Complete hydraulic bolt tensioning &amp; torque verification on all nozzles.
               </span>
               <Link
-                href="/shutdown-turnaround/"
+                href="/services/"
                 className="inline-flex items-center gap-1.5 font-bold text-[#155497] hover:underline"
               >
                 <span>Examine Work Scopes</span>
