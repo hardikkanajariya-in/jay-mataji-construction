@@ -25,7 +25,7 @@ export function ContactCTA() {
         className="absolute -bottom-20 left-1/3 w-[450px] h-[450px] rounded-full bg-[#F28A00]/15 blur-3xl pointer-events-none"
       />
 
-      <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider bg-white/10 text-slate-100 border border-white/20 mb-5 shadow-xs">
           <span className="w-2 h-2 rounded-full bg-[#F28A00] animate-pulse"></span>
           <span>Upcoming Turnaround Schedule</span>
