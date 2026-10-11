@@ -52,9 +52,9 @@ export function PageHeader({
         <h1 className="sm:text-4xl lg:text-2xl font-extrabold text-[#292929] tracking-tight leading-tight max-w-4xl">
           {title}
         </h1>
-        <p className="mt-4 text-base sm:text-lg text-[#5A6A78] leading-relaxed max-w-3xl">
+        {/* <p className="mt-4 text-base sm:text-lg text-[#5A6A78] leading-relaxed max-w-3xl">
           {description}
-        </p>
+        </p> */}
       </div>
     </div>
   );

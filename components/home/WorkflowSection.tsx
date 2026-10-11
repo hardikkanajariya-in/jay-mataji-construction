@@ -86,8 +86,23 @@ export function WorkflowSection() {
   const [activeStep, setActiveStep] = useState(0);
 
   return (
-    <section className="bg-[#EEF1F2] py-16 lg:py-24 border-b border-[#DCE2E5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-[#EFF4F8] py-16 lg:py-24 border-b border-[#DCE2E5] overflow-hidden">
+      {/* Background Subtle Flow Line Accent */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: "linear-gradient(90deg, #155497 1px, transparent 1px)",
+          backgroundSize: "60px 60px"
+        }}
+      />
+      {/* Ambient Radial Depth Glow */}
+      <div
+        aria-hidden="true"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full bg-[#155497]/[0.035] blur-3xl pointer-events-none"
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="Execution Methodology"
           title="Turnaround &amp; Shutdown Execution Sequence"
@@ -97,10 +112,10 @@ export function WorkflowSection() {
 
         {/* Connected Interactive Pipeline Navigator */}
         <div className="relative mb-10 max-w-5xl mx-auto">
-          {/* Background Connecting Pipe */}
-          <div className="hidden md:block absolute top-1/2 left-8 right-8 h-1 bg-[#DCE2E5] -translate-y-1/2 z-0">
+          {/* Background Connecting Pipe Track */}
+          <div className="hidden md:block absolute top-1/2 left-8 right-8 h-1.5 bg-[#DCE2E5] rounded-full -translate-y-1/2 z-0">
             <div
-              className="h-full bg-[#155497] transition-all duration-300"
+              className="h-full bg-gradient-to-r from-[#155497] via-[#155497] to-[#F28A00] rounded-full transition-all duration-300"
               style={{ width: `${(activeStep / (workflowSteps.length - 1)) * 100}%` }}
             />
           </div>
@@ -116,9 +131,9 @@ export function WorkflowSection() {
                   onClick={() => setActiveStep(idx)}
                   className={`relative p-3.5 rounded-xl text-left transition-all border flex flex-col justify-between ${
                     isSelected
-                      ? "bg-[#155497] text-white border-[#155497] shadow-md scale-102"
+                      ? "bg-[#155497] text-white border-[#155497] shadow-md -translate-y-0.5"
                       : isCompleted
-                      ? "bg-white text-[#292929] border-[#155497]/40 hover:border-[#155497]"
+                      ? "bg-white text-[#292929] border-[#155497]/40 hover:border-[#155497] hover:shadow-xs"
                       : "bg-white text-[#292929] border-[#DCE2E5] hover:border-slate-300 hover:bg-slate-50"
                   }`}
                   aria-pressed={isSelected}
@@ -127,7 +142,7 @@ export function WorkflowSection() {
                     <span
                       className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
                         isSelected
-                          ? "bg-[#F28A00] text-white"
+                          ? "bg-[#F28A00] text-white shadow-xs"
                           : isCompleted
                           ? "bg-[#155497] text-white"
                           : "bg-slate-100 text-[#5A6A78]"
@@ -158,7 +173,7 @@ export function WorkflowSection() {
         </div>
 
         {/* Active Phase Deep Dive Card */}
-        <div className="bg-white rounded-2xl border border-[#DCE2E5] shadow-xs p-6 sm:p-8 lg:p-10 max-w-4xl mx-auto transition-all">
+        <div className="bg-white rounded-2xl border border-[#DCE2E5] shadow-sm p-6 sm:p-8 lg:p-10 max-w-4xl mx-auto transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#DCE2E5] gap-4">
             <div>
               <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F28A00]">
@@ -186,7 +201,10 @@ export function WorkflowSection() {
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {workflowSteps[activeStep].documentedTasks.map((task, i) => (
-                <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg bg-[#F8FAFC] border border-[#DCE2E5] text-xs sm:text-sm text-[#292929]">
+                <div
+                  key={i}
+                  className="flex items-start gap-2.5 p-2.5 rounded-lg bg-[#F8FAFC] border border-[#DCE2E5] hover:border-[#155497]/30 hover:bg-white text-xs sm:text-sm text-[#292929] transition-colors"
+                >
                   <IconCheckCircle className="w-4 h-4 text-[#155497] flex-shrink-0 mt-0.5" />
                   <span className="leading-snug">{task}</span>
                 </div>
@@ -204,7 +222,7 @@ export function WorkflowSection() {
                 type="button"
                 disabled={activeStep === 0}
                 onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
-                className="px-4 py-2 rounded-lg border border-[#DCE2E5] font-semibold text-[#292929] hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-4 py-2 rounded-lg border border-[#DCE2E5] font-semibold text-[#292929] hover:bg-slate-50 active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 &larr; Previous Phase
               </button>
@@ -212,7 +230,7 @@ export function WorkflowSection() {
                 type="button"
                 disabled={activeStep === workflowSteps.length - 1}
                 onClick={() => setActiveStep((prev) => Math.min(workflowSteps.length - 1, prev + 1))}
-                className="px-4 py-2 rounded-lg bg-[#155497] text-white font-semibold hover:bg-[#123A68] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-4 py-2 rounded-lg bg-[#155497] text-white font-semibold hover:bg-[#123A68] active:scale-[0.98] transition-all disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Next Phase &rarr;
               </button>

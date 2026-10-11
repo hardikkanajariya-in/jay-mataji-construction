@@ -14,8 +14,18 @@ export function ProjectsTeaser() {
   ];
 
   return (
-    <section className="bg-[#F8FAFC] py-16 lg:py-24 border-b border-[#DCE2E5]">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="relative bg-[#F8FAFC] py-16 lg:py-24 border-b border-[#DCE2E5] overflow-hidden">
+      {/* Ambient background decoration */}
+      <div
+        aria-hidden="true"
+        className="absolute -top-32 -left-32 w-80 h-80 rounded-full bg-[#155497]/[0.025] blur-3xl pointer-events-none"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute bottom-0 right-10 w-96 h-96 rounded-full bg-[#F28A00]/[0.02] blur-3xl pointer-events-none"
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-12">
           <SectionHeader
             badge="Proven Track Record"
@@ -25,10 +35,10 @@ export function ProjectsTeaser() {
           />
           <Link
             href="/projects/"
-            className="mt-4 md:mt-0 inline-flex items-center gap-1.5 text-sm font-bold text-[#155497] hover:text-[#123A68] hover:underline"
+            className="group mt-4 md:mt-0 inline-flex items-center gap-1.5 text-sm font-bold text-[#155497] hover:text-[#123A68]"
           >
             <span>Search Complete 49-Record Register</span>
-            <IconArrowRight className="w-4 h-4 text-[#F28A00]" />
+            <IconArrowRight className="w-4 h-4 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </div>
 
@@ -37,19 +47,19 @@ export function ProjectsTeaser() {
           {highlightedProjects.map((proj) => (
             <div
               key={proj.id}
-              className="bg-white rounded-xl border border-[#DCE2E5] p-6 shadow-xs hover:border-[#155497]/40 transition-all flex flex-col justify-between"
+              className="group bg-white rounded-xl border border-[#DCE2E5] p-6 shadow-2xs hover:shadow-md hover:border-[#155497]/50 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="px-2.5 py-1 rounded bg-[#155497]/10 text-[#155497] text-xs font-bold">
+                  <span className="px-2.5 py-1 rounded-md bg-[#155497]/10 text-[#155497] text-xs font-bold border border-[#155497]/15">
                     {proj.year} &bull; {proj.month}
                   </span>
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded bg-slate-100 text-[#5A6A78]">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-md bg-slate-100 text-[#5A6A78] border border-slate-200/60">
                     {proj.category}
                   </span>
                 </div>
 
-                <h3 className="text-base font-bold text-[#292929] mb-2 leading-snug">
+                <h3 className="text-base font-bold text-[#292929] mb-2 leading-snug group-hover:text-[#155497] transition-colors">
                   {proj.jobDescription}
                 </h3>
 
@@ -70,7 +80,7 @@ export function ProjectsTeaser() {
                   Recorded Duration: <strong className="text-[#292929]">{proj.period}</strong>
                 </span>
                 <span className="text-[#5A6A78]">
-                  Deployed Manpower: <strong className="text-[#155497]">{proj.manpowerQty} MP</strong>
+                  Deployed Manpower: <strong className="text-[#155497] font-bold">{proj.manpowerQty} MP</strong>
                 </span>
               </div>
             </div>
@@ -78,9 +88,9 @@ export function ProjectsTeaser() {
         </div>
 
         {/* Callout Strip */}
-        <div className="bg-white rounded-xl border border-[#DCE2E5] p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="bg-gradient-to-r from-white via-white to-[#F0F5FA] rounded-xl border border-[#DCE2E5] p-6 shadow-2xs hover:border-[#155497]/30 transition-all flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-lg bg-[#155497] text-white flex items-center justify-center font-bold text-lg flex-shrink-0">
+            <div className="w-12 h-12 rounded-lg bg-[#155497] text-white flex items-center justify-center font-bold text-lg flex-shrink-0 shadow-xs">
               49
             </div>
             <div>
@@ -94,10 +104,10 @@ export function ProjectsTeaser() {
           </div>
           <Link
             href="/projects/"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#155497] hover:bg-[#123A68] text-white text-xs font-semibold px-5 py-3 rounded-md transition-colors"
+            className="group w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#155497] hover:bg-[#123A68] text-white text-xs font-semibold px-5 py-3 rounded-md shadow-xs hover:shadow transition-all"
           >
             <span>Launch Project Experience Explorer</span>
-            <IconChevronRight className="w-3.5 h-3.5 text-[#F28A00]" />
+            <IconChevronRight className="w-3.5 h-3.5 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-0.5" />
           </Link>
         </div>
       </div>

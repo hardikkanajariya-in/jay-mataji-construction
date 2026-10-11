@@ -90,6 +90,32 @@ textarea:disabled,
   animation: pulse-subtle 3s ease-in-out infinite;
 }
 
+@keyframes float-gentle {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(12px, -15px);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-12px, 14px);
+  }
+}
+
+.animate-float-gentle {
+  animation: float-gentle 18s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 22s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
@@ -101,6 +127,10 @@ textarea:disabled,
     animation: none !important;
   }
   .animate-pulse-subtle {
+    animation: none !important;
+  }
+  .animate-float-gentle,
+  .animate-float-reverse {
     animation: none !important;
   }
 }
