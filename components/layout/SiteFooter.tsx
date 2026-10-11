@@ -66,15 +66,6 @@ export function SiteFooter() {
             <p className="text-xs text-slate-300 leading-relaxed">
               Industrial contractor specializing in refinery turnaround, shutdown maintenance, static equipment overhaul, reactor catalyst handling, and specialized technical manpower supply since 2014.
             </p>
-            <div className="pt-2">
-              <Link
-                href="/contact/"
-                className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F28A00] hover:text-white transition-colors"
-              >
-                <span>Initiate turnaround discussion</span>
-                <IconChevronRight className="w-3.5 h-3.5" />
-              </Link>
-            </div>
           </div>
 
           {/* Quick Links */}
@@ -135,22 +126,26 @@ export function SiteFooter() {
                 </span>
               ))}
             </div>
-            <div className="mt-4 pt-3 border-t border-white/10 text-xs text-slate-300">
-              <span className="text-slate-400">Total Recorded Shutdowns:</span>{" "}
-              <span className="font-bold text-white">49 Contracts</span>
-            </div>
           </div>
         </div>
       </div>
 
       {/* Bottom Legal Bar */}
       <div className="bg-[#0c2747] py-5 px-4 sm:px-6 lg:px-8 border-t border-white/10 text-xs text-slate-400">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
           <div>
             &copy; {currentYear} {companyData.name}. All rights reserved.
           </div>
-          <div className="text-[11px] text-slate-400">
-            Shutdown &amp; Maintenance Solutions &bull; Established 2014 &bull; Static &amp; Turnaround Contractor
+          <div className="text-[11px] text-slate-300">
+            Designed By{" "}
+            <a
+              href="http://niftysolutions.co.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#F28A00] hover:text-white font-medium underline underline-offset-2 transition-colors"
+            >
+              Nifty Solutions
+            </a>
           </div>
         </div>
       </div>

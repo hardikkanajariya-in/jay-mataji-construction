@@ -74,18 +74,6 @@ export default function ProjectsPage() {
         </div>
       </section>
 
-      {/* Data Traceability Note */}
-      <section className="bg-white py-12 border-b border-[#DCE2E5]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-xs text-[#5A6A78] space-y-2">
-          <div className="font-bold text-[#292929] uppercase tracking-wider text-[11px]">
-            Data Integrity &amp; Transparency Notice
-          </div>
-          <p className="leading-relaxed">
-            All entries in this register reflect verified historical records sourced directly from company job completion sheets. Recorded manpower figures represent batch quantities mobilized for each specific contract window. Client and refinery names are maintained under centralized publication control.
-          </p>
-        </div>
-      </section>
-
       <ContactCTA />
     </>
   );

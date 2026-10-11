@@ -47,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="h-full bg-white text-[#292929]">
+    <html lang="en" className="h-full bg-white text-[#292929]" data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col font-sans antialiased">
         <SiteHeader />
         <main className="flex-1">

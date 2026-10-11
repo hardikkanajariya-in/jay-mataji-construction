@@ -1,215 +1,364 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { integrationsConfig } from "@/config/integrations";
 import { companyData } from "@/data/company";
 import { IconCheckCircle, IconArrowRight } from "@/components/ui/Icons";
+
+declare global {
+  interface Window {
+    grecaptcha?: {
+      ready: (callback: () => void) => void;
+      execute: (siteKey: string, options: { action: string }) => Promise<string>;
+    };
+  }
+}
 
 export function EnquiryForm() {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
-    contactInfo: "",
+    email: "",
+    phone: "",
     equipmentCategory: "Heat Exchangers",
     turnaroundPeriod: "",
     manpowerRequired: "",
-    requirements: ""
+    requirements: "",
+    botcheck: "" // Web3Forms honeypot anti-spam
   });
 
-  const [submitted, setSubmitted] = useState(false);
-  const [mailtoUrl, setMailtoUrl] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Load Google reCAPTCHA v3 script if siteKey is provided
+  useEffect(() => {
+    if (integrationsConfig.recaptcha.enabled && integrationsConfig.recaptcha.siteKey) {
+      const scriptId = "google-recaptcha-v3";
+      if (!document.getElementById(scriptId)) {
+        const script = document.createElement("script");
+        script.id = scriptId;
+        script.src = `https://www.google.com/recaptcha/api.js?render=${integrationsConfig.recaptcha.siteKey}`;
+        script.async = true;
+        document.body.appendChild(script);
+      }
+    }
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
 
-    // Prepare encoded mailto URL
-    const subject = encodeURIComponent(`Turnaround Enquiry: ${formData.company || formData.name} - ${formData.equipmentCategory}`);
-    const body = encodeURIComponent(
-      `JAY MATAJI CONSTRUCTION - SHUTDOWN ENQUIRY\n` +
-      `==========================================\n\n` +
-      `Contact Name: ${formData.name}\n` +
-      `Company / Refinery: ${formData.company}\n` +
-      `Work Email / Phone: ${formData.contactInfo}\n` +
-      `Equipment Category: ${formData.equipmentCategory}\n` +
-      `Target Outage Window: ${formData.turnaroundPeriod || "Not specified"}\n` +
-      `Estimated Manpower: ${formData.manpowerRequired || "To be discussed"}\n\n` +
-      `Detailed Scope & Requirements:\n` +
-      `${formData.requirements}\n\n` +
-      `==========================================\n` +
-      `Submitted via Jay Mataji Construction Web Portal`
-    );
+    // Basic email validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData.email)) {
+      setSubmitStatus("error");
+      setErrorMessage("Please provide a valid corporate email address.");
+      return;
+    }
 
-    const generatedMailto = `mailto:${companyData.contactEmail}?subject=${subject}&body=${body}`;
-    setMailtoUrl(generatedMailto);
-    setSubmitted(true);
+    setIsSubmitting(true);
+    setSubmitStatus("idle");
+    setErrorMessage("");
 
-    // Trigger user mail client
-    window.location.href = generatedMailto;
+    try {
+      let recaptchaToken = "";
+      if (integrationsConfig.recaptcha.enabled && window.grecaptcha) {
+        try {
+          await new Promise<void>((resolve) => window.grecaptcha?.ready(() => resolve()));
+          recaptchaToken = await window.grecaptcha.execute(
+            integrationsConfig.recaptcha.siteKey,
+            { action: integrationsConfig.recaptcha.actionName }
+          );
+        } catch {
+          // Gracefully continue with honeypot if reCAPTCHA script blocked by client
+        }
+      }
+
+      const accessKey = integrationsConfig.web3forms.accessKey;
+
+      const payload: Record<string, string> = {
+        access_key: accessKey,
+        subject: `${integrationsConfig.web3forms.subjectPrefix}: ${formData.company} - ${formData.equipmentCategory}`,
+        from_name: integrationsConfig.web3forms.fromName,
+        name: formData.name,
+        company: formData.company,
+        email: formData.email,
+        phone: formData.phone || "Not specified",
+        equipment_category: formData.equipmentCategory,
+        target_outage_window: formData.turnaroundPeriod || "Not specified",
+        estimated_manpower: formData.manpowerRequired || "To be discussed",
+        message: formData.requirements,
+        botcheck: formData.botcheck
+      };
+
+      if (recaptchaToken) {
+        payload["g-recaptcha-response"] = recaptchaToken;
+      }
+
+      const response = await fetch(integrationsConfig.web3forms.endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const result = await response.json();
+
+      if (response.ok && result.success) {
+        setSubmitStatus("success");
+      } else {
+        setSubmitStatus("error");
+        setErrorMessage(
+          result.message || "Unable to transmit technical enquiry. Please verify your details or contact our operations desk directly."
+        );
+      }
+    } catch {
+      setSubmitStatus("error");
+      setErrorMessage("Network error connecting to operations gateway. Please check your internet connection or email our operations desk directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleResetForm = () => {
+    setFormData({
+      name: "",
+      company: "",
+      email: "",
+      phone: "",
+      equipmentCategory: "Heat Exchangers",
+      turnaroundPeriod: "",
+      manpowerRequired: "",
+      requirements: "",
+      botcheck: ""
+    });
+    setSubmitStatus("idle");
+    setErrorMessage("");
   };
 
   return (
     <div className="bg-white rounded-xl border border-[#DCE2E5] p-6 sm:p-8 lg:p-10 shadow-xs">
-      {submitted ? (
-        <div className="text-center py-8 space-y-4">
-          <div className="w-14 h-14 rounded-full bg-[#155497]/10 text-[#155497] flex items-center justify-center mx-auto">
-            <IconCheckCircle className="w-8 h-8 text-[#155497]" />
+      {submitStatus === "success" ? (
+        <div className="text-center py-10 space-y-4">
+          <div className="w-16 h-16 rounded-full bg-[#155497]/10 text-[#155497] flex items-center justify-center mx-auto">
+            <IconCheckCircle className="w-10 h-10 text-[#155497]" />
           </div>
-          <h3 className="text-2xl font-bold text-[#292929]">
-            Enquiry Details Prepared
+          <h3 className="text-2xl font-extrabold text-[#292929]">
+            Turnaround Enquiry Transmitted
           </h3>
           <p className="text-sm text-[#5A6A78] max-w-md mx-auto leading-relaxed">
-            Your default email client has been opened with your structured technical requirements pre-filled for <strong>{companyData.contactEmail}</strong>.
+            Thank you. Your technical requisition has been dispatched directly to the operations planning team at <strong>{companyData.name}</strong>. An outage coordinator will review your schedule and respond promptly.
           </p>
-          <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <a
-              href={mailtoUrl}
-              className="px-5 py-3 rounded-md bg-[#155497] text-white text-xs font-semibold hover:bg-[#123A68]"
-            >
-              Open Email Client Again
-            </a>
+          <div className="pt-4">
             <button
               type="button"
-              onClick={() => setSubmitted(false)}
-              className="px-5 py-3 rounded-md border border-[#DCE2E5] text-[#292929] text-xs font-semibold hover:bg-slate-50"
+              onClick={handleResetForm}
+              className="px-6 py-3 rounded-lg bg-[#155497] text-white text-xs font-semibold hover:bg-[#123A68] transition-colors"
             >
-              Edit Enquiry Details
+              Submit Another Requisition
             </button>
           </div>
         </div>
       ) : (
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-6" noValidate>
           <div className="border-b border-[#DCE2E5] pb-4 mb-2">
             <h3 className="text-xl font-bold text-[#292929]">Turnaround Scope &amp; Manpower Requisition</h3>
             <p className="text-xs text-[#5A6A78] mt-1">
-              Provide your upcoming outage requirements. Form encodes directly to our operations desk.
+              Complete your planned outage parameters. Inquiries are routed directly to our operations and mobilization desk.
             </p>
           </div>
+
+          {/* Honeypot anti-spam field */}
+          <input
+            type="checkbox"
+            name="botcheck"
+            className="hidden"
+            style={{ display: "none" }}
+            checked={Boolean(formData.botcheck)}
+            onChange={(e) => setFormData({ ...formData, botcheck: e.target.checked ? "bot" : "" })}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+
+          {submitStatus === "error" && (
+            <div className="p-4 rounded-lg bg-red-50 border border-red-200 text-xs text-red-700 flex items-start gap-2.5" role="alert">
+              <span className="font-bold text-red-800 flex-shrink-0">&bull;</span>
+              <div>
+                <strong className="block font-semibold">Transmission Notice:</strong>
+                {errorMessage}
+              </div>
+            </div>
+          )}
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="name" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Full Name *
+                Full Name <span className="text-[#F28A00]">*</span>
               </label>
               <input
                 id="name"
+                name="name"
                 type="text"
                 required
+                disabled={isSubmitting}
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="e.g., Rajesh Patel"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
 
             <div>
               <label htmlFor="company" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Company / Refinery *
+                Company / Refinery Complex <span className="text-[#F28A00]">*</span>
               </label>
               <input
                 id="company"
+                name="company"
                 type="text"
                 required
+                disabled={isSubmitting}
                 value={formData.company}
                 onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                placeholder="e.g., Indian Oil / Reliance Refinery"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                placeholder="e.g., Indian Oil / Reliance Industries"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
-              <label htmlFor="contactInfo" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Work Email or Phone *
+              <label htmlFor="email" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
+                Work Email <span className="text-[#F28A00]">*</span>
               </label>
               <input
-                id="contactInfo"
-                type="text"
+                id="email"
+                name="email"
+                type="email"
                 required
-                value={formData.contactInfo}
-                onChange={(e) => setFormData({ ...formData, contactInfo: e.target.value })}
-                placeholder="contact@company.com / +91 ..."
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                disabled={isSubmitting}
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                placeholder="procurement@refinery.com"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
 
             <div>
+              <label htmlFor="phone" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
+                Contact Phone / Mobile
+              </label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                disabled={isSubmitting}
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="+91 98765 XXXXX"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
+              />
+            </div>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
+            <div>
               <label htmlFor="equipmentCategory" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Primary Scope / Equipment *
+                Primary Scope <span className="text-[#F28A00]">*</span>
               </label>
               <select
                 id="equipmentCategory"
+                name="equipmentCategory"
+                disabled={isSubmitting}
                 value={formData.equipmentCategory}
                 onChange={(e) => setFormData({ ...formData, equipmentCategory: e.target.value })}
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               >
-                <option value="Heat Exchangers">Heat Exchangers (Cleaning, Testing, Box-up)</option>
+                <option value="Heat Exchangers">Heat Exchangers Overhaul</option>
                 <option value="Distillation Columns">Distillation Columns &amp; Trays</option>
                 <option value="Reactors & Catalyst">Reactors &amp; Catalyst Handling</option>
                 <option value="Vessels & Spheres">Vessels &amp; Spheres</option>
                 <option value="Heaters & Furnaces">Heaters, Boilers &amp; Furnaces</option>
                 <option value="Valves & Pumps">Valves, Pumps &amp; Compressors</option>
-                <option value="Engineered Scaffolding">Engineered Industrial Scaffolding</option>
-                <option value="Turnaround Manpower">Specialized Shutdown Manpower (Up to 700+)</option>
+                <option value="Engineered Scaffolding">Engineered Scaffolding Platforms</option>
+                <option value="Turnaround Manpower">Trade Crew Supply (Up to 700+)</option>
               </select>
             </div>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             <div>
               <label htmlFor="turnaroundPeriod" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Target Outage Window / Month
+                Target Outage Window
               </label>
               <input
                 id="turnaroundPeriod"
+                name="turnaroundPeriod"
                 type="text"
+                disabled={isSubmitting}
                 value={formData.turnaroundPeriod}
                 onChange={(e) => setFormData({ ...formData, turnaroundPeriod: e.target.value })}
-                placeholder="e.g., Nov 2026, 18-day window"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                placeholder="e.g., Nov 2026 (18 Days)"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
 
             <div>
               <label htmlFor="manpowerRequired" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-                Estimated Trade Crew Size
+                Trade Crew Size
               </label>
               <input
                 id="manpowerRequired"
+                name="manpowerRequired"
                 type="text"
+                disabled={isSubmitting}
                 value={formData.manpowerRequired}
                 onChange={(e) => setFormData({ ...formData, manpowerRequired: e.target.value })}
-                placeholder="e.g., 50-100 Fitters / Riggers"
-                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+                placeholder="e.g., 50–150 Technicians"
+                className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
           </div>
 
           <div>
             <label htmlFor="requirements" className="block text-xs font-bold text-[#292929] mb-1.5 uppercase tracking-wider">
-              Detailed Scope Summary *
+              Technical Scope &amp; Unit Description <span className="text-[#F28A00]">*</span>
             </label>
             <textarea
               id="requirements"
+              name="requirements"
               rows={4}
               required
+              disabled={isSubmitting}
               value={formData.requirements}
               onChange={(e) => setFormData({ ...formData, requirements: e.target.value })}
-              placeholder="Outline unit name (CDU/FCCU/DHDS), number of exchangers or column heights, tooling expectations, or specific shift requirements..."
-              className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
+              placeholder="Outline unit name (CDU/FCCU/DHDS), number of heat exchangers, column heights, blinding boundaries, specialized tooling, or shift arrangements..."
+              className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
             />
           </div>
 
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#F28A00] hover:bg-[#d97c00] text-white font-bold px-8 py-3.5 rounded-lg text-sm shadow-md transition-colors"
+              disabled={isSubmitting}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#F28A00] hover:bg-[#d97c00] active:scale-[0.99] text-white font-bold px-8 py-3.5 rounded-lg text-sm shadow-md transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              <span>Transmit Technical Requisition</span>
-              <IconArrowRight className="w-4 h-4" />
+              {isSubmitting ? (
+                <>
+                  <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  <span>Transmitting Requisition...</span>
+                </>
+              ) : (
+                <>
+                  <span>Transmit Technical Requisition</span>
+                  <IconArrowRight className="w-4 h-4" />
+                </>
+              )}
             </button>
-            <span className="block text-[11px] text-[#5A6A78] mt-2">
-              *Generates pre-formatted email to operations dispatch: {companyData.contactEmail}
-            </span>
           </div>
         </form>
       )}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { projectsData, ProjectRecord, getDisplayClient, getDisplaySite } from "@/data/projects";
 import { IconSearch, IconMapPin, IconUsers, IconX } from "@/components/ui/Icons";
 
@@ -10,6 +10,17 @@ export function ProjectExplorer() {
   const [selectedCategory, setSelectedCategory] = useState<string>("ALL");
   const [sortBy, setSortBy] = useState<"year-desc" | "year-asc" | "manpower-desc">("year-desc");
   const [inspectingRecord, setInspectingRecord] = useState<ProjectRecord | null>(null);
+
+  // Close modal on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && inspectingRecord) {
+        setInspectingRecord(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [inspectingRecord]);
 
   // Extract distinct years and categories
   const years = useMemo(() => {
@@ -26,17 +37,14 @@ export function ProjectExplorer() {
   const filteredProjects = useMemo(() => {
     return projectsData
       .filter((proj) => {
-        // Year filter
         if (selectedYear !== "ALL" && proj.year.toString() !== selectedYear) {
           return false;
         }
 
-        // Category filter
         if (selectedCategory !== "ALL" && proj.category !== selectedCategory) {
           return false;
         }
 
-        // Search query
         if (searchQuery.trim() !== "") {
           const q = searchQuery.toLowerCase();
           const matchClient = getDisplayClient(proj).toLowerCase().includes(q);
@@ -65,6 +73,11 @@ export function ProjectExplorer() {
       });
   }, [searchQuery, selectedYear, selectedCategory, sortBy]);
 
+  // Quick aggregate stats for active filter
+  const totalFilteredManpower = useMemo(() => {
+    return filteredProjects.reduce((sum, p) => sum + p.manpowerQty, 0);
+  }, [filteredProjects]);
+
   const handleResetFilters = () => {
     setSearchQuery("");
     setSelectedYear("ALL");
@@ -76,11 +89,47 @@ export function ProjectExplorer() {
 
   return (
     <div className="space-y-8">
+      {/* Quick Year Pill Navigator */}
+      <div className="flex items-center gap-1.5 overflow-x-auto pb-2 scrollbar-none">
+        <span className="text-xs font-bold text-[#5A6A78] uppercase tracking-wider mr-2 whitespace-nowrap">
+          Timeline:
+        </span>
+        <button
+          type="button"
+          onClick={() => setSelectedYear("ALL")}
+          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all whitespace-nowrap border ${
+            selectedYear === "ALL"
+              ? "bg-[#155497] text-white border-[#155497] shadow-xs"
+              : "bg-white text-[#292929] border-[#DCE2E5] hover:bg-slate-50"
+          }`}
+        >
+          All Years (49)
+        </button>
+        {years.map((y) => {
+          const count = projectsData.filter((p) => p.year === y).length;
+          const isSelected = selectedYear === y.toString();
+          return (
+            <button
+              key={y}
+              type="button"
+              onClick={() => setSelectedYear(isSelected ? "ALL" : y.toString())}
+              className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all whitespace-nowrap border ${
+                isSelected
+                  ? "bg-[#155497] text-white border-[#155497] shadow-xs"
+                  : "bg-white text-[#292929] border-[#DCE2E5] hover:bg-slate-50"
+              }`}
+            >
+              {y} ({count})
+            </button>
+          );
+        })}
+      </div>
+
       {/* Search & Filter Toolbar */}
       <div className="bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           {/* Text Search */}
-          <div className="md:col-span-4 relative">
+          <div className="md:col-span-5 relative">
             <label htmlFor="search-input" className="sr-only">Search projects</label>
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
               <IconSearch className="w-4 h-4" />
@@ -90,8 +139,8 @@ export function ProjectExplorer() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Search by refinery, unit, or scope..."
-              className="w-full pl-9 pr-3 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-xs sm:text-sm text-[#292929] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all"
+              placeholder="Search by refinery, unit (FCCU/CDU), or scope..."
+              className="w-full pl-9 pr-8 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-xs sm:text-sm text-[#292929] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all"
             />
             {searchQuery && (
               <button
@@ -105,26 +154,8 @@ export function ProjectExplorer() {
             )}
           </div>
 
-          {/* Year Filter */}
-          <div className="md:col-span-3">
-            <label htmlFor="year-select" className="sr-only">Filter by Year</label>
-            <select
-              id="year-select"
-              value={selectedYear}
-              onChange={(e) => setSelectedYear(e.target.value)}
-              className="w-full px-3 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-xs sm:text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
-            >
-              <option value="ALL">All Years (2014 &ndash; 2026)</option>
-              {years.map((y) => (
-                <option key={y} value={y.toString()}>
-                  Year {y}
-                </option>
-              ))}
-            </select>
-          </div>
-
           {/* Category Filter */}
-          <div className="md:col-span-3">
+          <div className="md:col-span-4">
             <label htmlFor="category-select" className="sr-only">Filter by Scope Category</label>
             <select
               id="category-select"
@@ -132,7 +163,7 @@ export function ProjectExplorer() {
               onChange={(e) => setSelectedCategory(e.target.value)}
               className="w-full px-3 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-xs sm:text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white"
             >
-              <option value="ALL">All Work Categories</option>
+              <option value="ALL">All Equipment Categories</option>
               {categories.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -142,7 +173,7 @@ export function ProjectExplorer() {
           </div>
 
           {/* Sort By */}
-          <div className="md:col-span-2">
+          <div className="md:col-span-3">
             <label htmlFor="sort-select" className="sr-only">Sort By</label>
             <select
               id="sort-select"
@@ -152,16 +183,22 @@ export function ProjectExplorer() {
             >
               <option value="year-desc">Latest First (2026 &rarr; 2014)</option>
               <option value="year-asc">Earliest First (2014 &rarr; 2026)</option>
-              <option value="manpower-desc">Highest Manpower Quantity</option>
+              <option value="manpower-desc">Highest Trade Deployment</option>
             </select>
           </div>
         </div>
 
-        {/* Filter Summary & Reset Bar */}
+        {/* Filter Summary Bar */}
         <div className="flex flex-wrap items-center justify-between gap-3 pt-4 mt-4 border-t border-[#DCE2E5] text-xs">
-          <div className="text-[#5A6A78]">
-            Showing <strong className="text-[#292929]">{filteredProjects.length}</strong> of{" "}
-            <strong className="text-[#292929]">{projectsData.length}</strong> recorded turnaround contracts
+          <div className="flex items-center gap-4 text-[#5A6A78]">
+            <span>
+              Showing <strong className="text-[#292929]">{filteredProjects.length}</strong> of{" "}
+              <strong className="text-[#292929]">{projectsData.length}</strong> turnaround contracts
+            </span>
+            <span className="hidden sm:inline text-slate-300">|</span>
+            <span className="hidden sm:inline">
+              Cumulative Mobilization: <strong className="text-[#155497]">{totalFilteredManpower} Personnel</strong>
+            </span>
           </div>
 
           {hasActiveFilters && (
@@ -170,26 +207,26 @@ export function ProjectExplorer() {
               onClick={handleResetFilters}
               className="inline-flex items-center gap-1 font-semibold text-[#F28A00] hover:text-[#d97c00] underline"
             >
-              <span>Reset all filters</span>
+              <span>Reset active filters</span>
             </button>
           )}
         </div>
       </div>
 
-      {/* Results Grid / Table */}
+      {/* Results Grid */}
       {filteredProjects.length === 0 ? (
         <div className="bg-white rounded-xl border border-[#DCE2E5] p-12 text-center max-w-lg mx-auto">
           <div className="w-12 h-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
             <IconSearch className="w-6 h-6" />
           </div>
-          <h3 className="text-base font-bold text-[#292929]">No historical records match your filters</h3>
+          <h3 className="text-base font-bold text-[#292929]">No historical records match your filter criteria</h3>
           <p className="text-xs text-[#5A6A78] mt-1">
-            Try adjusting your search query, selecting another year, or resetting filters.
+            Try adjusting your search terms, selecting another equipment scope, or clearing filters.
           </p>
           <button
             type="button"
             onClick={handleResetFilters}
-            className="mt-4 px-4 py-2 bg-[#155497] text-white text-xs font-semibold rounded-md"
+            className="mt-4 px-4 py-2 bg-[#155497] text-white text-xs font-semibold rounded-lg hover:bg-[#123A68] transition-colors"
           >
             Reset Filters
           </button>
@@ -199,7 +236,7 @@ export function ProjectExplorer() {
           {filteredProjects.map((proj) => (
             <div
               key={proj.id}
-              className="bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs hover:border-[#155497]/40 transition-all flex flex-col justify-between"
+              className="bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs hover:border-[#155497]/50 hover:shadow-sm transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between gap-2 mb-3">
@@ -226,22 +263,22 @@ export function ProjectExplorer() {
                   </div>
                   <div className="flex items-start gap-2">
                     <IconUsers className="w-3.5 h-3.5 text-[#155497] flex-shrink-0 mt-0.5" />
-                    <span className="line-clamp-1">Contractor: {getDisplayClient(proj)}</span>
+                    <span className="line-clamp-1">{getDisplayClient(proj)}</span>
                   </div>
                 </div>
               </div>
 
               <div className="pt-4 mt-4 border-t border-slate-100 flex items-center justify-between text-xs">
                 <div>
-                  <span className="text-[#5A6A78] block text-[11px]">Duration &bull; Manpower</span>
+                  <span className="text-[#5A6A78] block text-[11px]">Duration &bull; Crew</span>
                   <span className="font-semibold text-[#292929]">{proj.period} &bull; {proj.manpowerQty} MP</span>
                 </div>
                 <button
                   type="button"
                   onClick={() => setInspectingRecord(proj)}
-                  className="px-3 py-1.5 rounded bg-[#EEF1F2] hover:bg-[#155497] hover:text-white text-[#155497] font-semibold text-xs transition-colors"
+                  className="px-3.5 py-1.5 rounded-lg bg-[#EEF1F2] hover:bg-[#155497] hover:text-white text-[#155497] font-semibold text-xs transition-colors"
                 >
-                  Details
+                  Inspect
                 </button>
               </div>
             </div>
@@ -252,8 +289,10 @@ export function ProjectExplorer() {
       {/* Record Inspector Modal */}
       {inspectingRecord && (
         <div
-          className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4"
+          className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-150"
           onClick={() => setInspectingRecord(null)}
+          role="dialog"
+          aria-modal="true"
         >
           <div
             className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl relative"
@@ -262,53 +301,53 @@ export function ProjectExplorer() {
             <button
               type="button"
               onClick={() => setInspectingRecord(null)}
-              className="absolute top-5 right-5 p-1 text-slate-400 hover:text-slate-700 rounded-md"
-              aria-label="Close modal"
+              className="absolute top-5 right-5 p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition-colors"
+              aria-label="Close record modal"
             >
               <IconX className="w-5 h-5" />
             </button>
 
             <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#155497]/10 text-[#155497] text-xs font-bold mb-3">
-              <span>Historical Project Register &bull; Entry #{inspectingRecord.srNo}</span>
+              <span>Historical Register &bull; Outage Contract #{inspectingRecord.srNo}</span>
             </div>
 
-            <h3 className="text-xl font-extrabold text-[#292929] mb-4">
+            <h3 className="text-xl font-extrabold text-[#292929] mb-4 leading-snug">
               {inspectingRecord.jobDescription}
             </h3>
 
             <div className="space-y-3 bg-[#F8FAFC] p-4 rounded-xl border border-[#DCE2E5] text-xs sm:text-sm">
               <div>
-                <span className="text-[#5A6A78] block text-xs">Client / Turnaround EPC:</span>
+                <span className="text-[#5A6A78] block text-xs">Contracting Partner / EPC:</span>
                 <span className="font-bold text-[#292929]">{getDisplayClient(inspectingRecord)}</span>
               </div>
               <div>
-                <span className="text-[#5A6A78] block text-xs">Refinery / Site Location:</span>
+                <span className="text-[#5A6A78] block text-xs">Refinery Unit &amp; Location:</span>
                 <span className="font-bold text-[#292929]">{getDisplaySite(inspectingRecord)}</span>
               </div>
               <div className="grid grid-cols-2 gap-3 pt-2 border-t border-[#DCE2E5]">
                 <div>
-                  <span className="text-[#5A6A78] block text-xs">Execution Period:</span>
+                  <span className="text-[#5A6A78] block text-xs">Outage Window:</span>
                   <span className="font-semibold text-[#292929]">{inspectingRecord.month} {inspectingRecord.year}</span>
                 </div>
                 <div>
-                  <span className="text-[#5A6A78] block text-xs">Documented Duration:</span>
+                  <span className="text-[#5A6A78] block text-xs">Turnaround Duration:</span>
                   <span className="font-semibold text-[#292929]">{inspectingRecord.period}</span>
                 </div>
               </div>
               <div className="pt-2 border-t border-[#DCE2E5]">
-                <span className="text-[#5A6A78] block text-xs">Recorded Manpower Quantity:</span>
-                <span className="font-bold text-[#155497] text-base">{inspectingRecord.manpowerQty} Manpower</span>
+                <span className="text-[#5A6A78] block text-xs">Trade Crew Deployed:</span>
+                <span className="font-bold text-[#155497] text-base">{inspectingRecord.manpowerQty} Technical Manpower</span>
                 <span className="text-[11px] text-[#5A6A78] block mt-0.5">
-                  *Recorded peak/batch quantity assigned to this specific contract scope.
+                  Dedicated trade crew mobilized for this turnaround outage.
                 </span>
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end">
+            <div className="mt-6 flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => setInspectingRecord(null)}
-                className="px-4 py-2 bg-[#155497] text-white text-xs font-semibold rounded-md"
+                className="px-5 py-2.5 bg-[#155497] text-white text-xs font-semibold rounded-lg hover:bg-[#123A68] transition-colors"
               >
                 Close Record
               </button>

@@ -8,7 +8,7 @@
   --color-brand-muted: #5A6A78;
   --color-brand-border: #DCE2E5;
   --color-brand-surface: #F8FAFC;
-  --color-brand-neutral: #F1F5F9;
+  --color-brand-neutral: #EEF1F2;
 }
 
 :root {
@@ -34,11 +34,73 @@ body {
   color: #ffffff;
 }
 
+/* Global Interactive Pointer Cursor & Disabled States */
+a,
+button:not(:disabled),
+[role="button"],
+[role="tab"],
+[role="menuitem"],
+summary,
+input[type="button"]:not(:disabled),
+input[type="submit"]:not(:disabled),
+input[type="reset"]:not(:disabled),
+select {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled,
+select:disabled,
+textarea:disabled,
+[aria-disabled="true"] {
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+/* Accessible Focus Indicators */
+:focus-visible {
+  outline: 2px solid #155497;
+  outline-offset: 2px;
+}
+
+/* Subtle Industrial Flow Animations */
+@keyframes dash {
+  to {
+    stroke-dashoffset: -20;
+  }
+}
+
+.animate-pipeline-flow {
+  stroke-dasharray: 6 4;
+  animation: dash 1.5s linear infinite;
+}
+
+@keyframes pulse-subtle {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.75;
+    transform: scale(0.98);
+  }
+}
+
+.animate-pulse-subtle {
+  animation: pulse-subtle 3s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::before, ::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .animate-pipeline-flow {
+    animation: none !important;
+  }
+  .animate-pulse-subtle {
+    animation: none !important;
   }
 }

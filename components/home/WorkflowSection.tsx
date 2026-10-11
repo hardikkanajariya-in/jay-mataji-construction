@@ -7,6 +7,7 @@ import { IconCheckCircle } from "@/components/ui/Icons";
 interface WorkflowStep {
   stepNumber: string;
   title: string;
+  shortTag: string;
   summary: string;
   documentedTasks: string[];
   equipmentFocus: string;
@@ -16,11 +17,12 @@ const workflowSteps: WorkflowStep[] = [
   {
     stepNumber: "01",
     title: "Scope Preparation & Blinding",
-    summary: "Pre-turnaround mobilization, scaffolding erection, tagging, and positive isolation across all flanged battery limits.",
+    shortTag: "Isolation & Blind Lists",
+    summary: "Pre-turnaround staging, modular scaffolding erection, tool mobilization, and positive isolation across all flanged battery limits.",
     documentedTasks: [
-      "Rigging of engineered modular scaffolding platforms around columns and exchangers",
-      "Field verification of isolation limits against approved blind lists",
-      "De-bolting and positive blinding of nozzles, line connections, and manifolds",
+      "Rigging of engineered modular scaffolding platforms around columns and heat exchangers",
+      "Field verification of isolation limits against approved refinery blind lists",
+      "De-bolting and positive blinding of nozzles, line connections, and battery headers",
       "Readiness checks of hydraulic torque wrenches, tube rollers, and safety gear"
     ],
     equipmentFocus: "Battery limits, battery headers, heat exchanger nozzles, column piping"
@@ -28,6 +30,7 @@ const workflowSteps: WorkflowStep[] = [
   {
     stepNumber: "02",
     title: "Opening & Internal Access",
+    shortTag: "Channel & Manway Access",
     summary: "Systematic unbolting of channel covers, manways, and internal tray hardware under controlled atmospheric protocols.",
     documentedTasks: [
       "Removal of heat exchanger channel covers, floating heads, and shell covers",
@@ -40,6 +43,7 @@ const workflowSteps: WorkflowStep[] = [
   {
     stepNumber: "03",
     title: "Cleaning, Overhaul & Servicing",
+    shortTag: "Hydro Jetting & Overhauls",
     summary: "Heavy mechanical descaling, catalyst handling, hydro jetting, and rotating machinery overhaul.",
     documentedTasks: [
       "High-pressure hydro jetting and rotary mechanical brushing of exchanger tubes",
@@ -53,6 +57,7 @@ const workflowSteps: WorkflowStep[] = [
   {
     stepNumber: "04",
     title: "Inspection & Pressure Testing",
+    shortTag: "QA/QC & Hydro Testing",
     summary: "Quality checks, joint verification, silpan testing on column internals, and hydrostatic pressure testing.",
     documentedTasks: [
       "Silpan test and QA/QC witness inspection on reassembled column trays",
@@ -65,6 +70,7 @@ const workflowSteps: WorkflowStep[] = [
   {
     stepNumber: "05",
     title: "Box-Up & Final De-Blinding",
+    shortTag: "Torque Box-Up & Handover",
     summary: "New gasket insertion, controlled torque tightening, manway closure, and systematic de-blinding for startup handover.",
     documentedTasks: [
       "Box-up of internal column tray manways and shell manways with certified gaskets",
@@ -84,48 +90,89 @@ export function WorkflowSection() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeader
           badge="Execution Methodology"
-          title="Turnaround & Shutdown Execution Sequence"
-          description="An illustrative breakdown of the documented field activities performed during typical refinery turnaround and shutdown scopes, from initial positive blinding to final unit box-up."
+          title="Turnaround &amp; Shutdown Execution Sequence"
+          description="Systematic execution sequence deployed during refinery turnaround and shutdown outages, ensuring positive isolation, thorough mechanical servicing, and zero-leak unit box-up."
           centered
         />
 
-        {/* Step Selector Pills */}
-        <div className="flex flex-wrap justify-center gap-2 mb-8">
-          {workflowSteps.map((step, idx) => (
-            <button
-              key={step.stepNumber}
-              type="button"
-              onClick={() => setActiveStep(idx)}
-              className={`px-4 py-2.5 rounded-lg text-xs sm:text-sm font-semibold transition-all flex items-center gap-2 border ${
-                activeStep === idx
-                  ? "bg-[#155497] text-white border-[#155497] shadow-sm"
-                  : "bg-white text-[#292929] border-[#DCE2E5] hover:bg-slate-50"
-              }`}
-            >
-              <span className={`w-5 h-5 rounded-full flex items-center justify-center text-[10px] font-bold ${
-                activeStep === idx ? "bg-[#F28A00] text-white" : "bg-slate-100 text-[#5A6A78]"
-              }`}>
-                {step.stepNumber}
-              </span>
-              <span>{step.title}</span>
-            </button>
-          ))}
+        {/* Connected Interactive Pipeline Navigator */}
+        <div className="relative mb-10 max-w-5xl mx-auto">
+          {/* Background Connecting Pipe */}
+          <div className="hidden md:block absolute top-1/2 left-8 right-8 h-1 bg-[#DCE2E5] -translate-y-1/2 z-0">
+            <div
+              className="h-full bg-[#155497] transition-all duration-300"
+              style={{ width: `${(activeStep / (workflowSteps.length - 1)) * 100}%` }}
+            />
+          </div>
+
+          <div className="relative z-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
+            {workflowSteps.map((step, idx) => {
+              const isSelected = activeStep === idx;
+              const isCompleted = idx < activeStep;
+              return (
+                <button
+                  key={step.stepNumber}
+                  type="button"
+                  onClick={() => setActiveStep(idx)}
+                  className={`relative p-3.5 rounded-xl text-left transition-all border flex flex-col justify-between ${
+                    isSelected
+                      ? "bg-[#155497] text-white border-[#155497] shadow-md scale-102"
+                      : isCompleted
+                      ? "bg-white text-[#292929] border-[#155497]/40 hover:border-[#155497]"
+                      : "bg-white text-[#292929] border-[#DCE2E5] hover:border-slate-300 hover:bg-slate-50"
+                  }`}
+                  aria-pressed={isSelected}
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span
+                      className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold ${
+                        isSelected
+                          ? "bg-[#F28A00] text-white"
+                          : isCompleted
+                          ? "bg-[#155497] text-white"
+                          : "bg-slate-100 text-[#5A6A78]"
+                      }`}
+                    >
+                      {step.stepNumber}
+                    </span>
+                    {isSelected && (
+                      <span className="w-2 h-2 rounded-full bg-[#F28A00] animate-pulse"></span>
+                    )}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold leading-snug line-clamp-2">
+                      {step.title}
+                    </div>
+                    <div
+                      className={`text-[10px] mt-0.5 line-clamp-1 ${
+                        isSelected ? "text-slate-200" : "text-[#5A6A78]"
+                      }`}
+                    >
+                      {step.shortTag}
+                    </div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        {/* Active Step Detail Card */}
-        <div className="bg-white rounded-xl border border-[#DCE2E5] shadow-xs p-6 sm:p-8 lg:p-10 max-w-4xl mx-auto">
+        {/* Active Phase Deep Dive Card */}
+        <div className="bg-white rounded-2xl border border-[#DCE2E5] shadow-xs p-6 sm:p-8 lg:p-10 max-w-4xl mx-auto transition-all">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-[#DCE2E5] gap-4">
             <div>
-              <div className="text-xs font-bold uppercase tracking-wider text-[#F28A00]">
-                Phase {workflowSteps[activeStep].stepNumber} of 05
+              <div className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#F28A00]">
+                <span>Phase {workflowSteps[activeStep].stepNumber} of 05</span>
+                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
+                <span className="text-[#155497]">{workflowSteps[activeStep].shortTag}</span>
               </div>
               <h3 className="text-xl sm:text-2xl font-extrabold text-[#292929] mt-1">
                 {workflowSteps[activeStep].title}
               </h3>
             </div>
-            <div className="px-3 py-1.5 bg-[#EEF1F2] rounded text-xs font-medium text-[#5A6A78] max-w-xs">
-              <span className="font-semibold text-[#292929]">Focus Equipment:</span>{" "}
-              {workflowSteps[activeStep].equipmentFocus}
+            <div className="px-3.5 py-2 bg-[#F8FAFC] rounded-lg border border-[#DCE2E5] text-xs font-medium text-[#5A6A78] max-w-xs">
+              <span className="font-bold text-[#292929] block mb-0.5">Primary Target Units:</span>
+              <span className="text-[11px] leading-tight block">{workflowSteps[activeStep].equipmentFocus}</span>
             </div>
           </div>
 
@@ -135,38 +182,39 @@ export function WorkflowSection() {
 
           <div className="pt-6">
             <h4 className="text-xs font-bold uppercase tracking-wider text-[#292929] mb-4">
-              Documented Field Activities:
+              Documented Field Execution Scope:
             </h4>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
               {workflowSteps[activeStep].documentedTasks.map((task, i) => (
-                <div key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#292929]">
+                <div key={i} className="flex items-start gap-2.5 p-2 rounded-lg bg-[#F8FAFC] border border-[#DCE2E5] text-xs sm:text-sm text-[#292929]">
                   <IconCheckCircle className="w-4 h-4 text-[#155497] flex-shrink-0 mt-0.5" />
-                  <span>{task}</span>
+                  <span className="leading-snug">{task}</span>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="mt-8 pt-4 border-t border-slate-100 flex items-center justify-between text-xs text-[#5A6A78]">
-            <span className="italic">
-              *Illustrative technical explanation of documented shutdown work scopes.
+          {/* Navigation Controls */}
+          <div className="mt-8 pt-6 border-t border-[#DCE2E5] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs">
+            <span className="text-[#5A6A78] text-center sm:text-left">
+              Rigorous procedural verification ensuring zero-leak startup handovers.
             </span>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
               <button
                 type="button"
                 disabled={activeStep === 0}
                 onClick={() => setActiveStep((prev) => Math.max(0, prev - 1))}
-                className="px-3 py-1.5 rounded border border-[#DCE2E5] font-semibold text-[#292929] disabled:opacity-40 disabled:cursor-not-allowed hover:bg-slate-50"
+                className="px-4 py-2 rounded-lg border border-[#DCE2E5] font-semibold text-[#292929] hover:bg-slate-50 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Previous
+                &larr; Previous Phase
               </button>
               <button
                 type="button"
                 disabled={activeStep === workflowSteps.length - 1}
                 onClick={() => setActiveStep((prev) => Math.min(workflowSteps.length - 1, prev + 1))}
-                className="px-3 py-1.5 rounded bg-[#155497] text-white font-semibold disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[#123A68]"
+                className="px-4 py-2 rounded-lg bg-[#155497] text-white font-semibold hover:bg-[#123A68] transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                Next Phase
+                Next Phase &rarr;
               </button>
             </div>
           </div>
