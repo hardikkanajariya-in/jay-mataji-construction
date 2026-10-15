@@ -7,8 +7,7 @@ export const mainNavItems: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "About Us", href: "/about/" },
   { label: "Services", href: "/services/" },
-  { label: "Project Experience", href: "/projects/" },
-  { label: "Contact", href: "/contact/" }
+  { label: "Project Experience", href: "/projects/" }
 ];
 
 export const footerQuickLinks: NavItem[] = [

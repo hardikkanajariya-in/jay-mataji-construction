@@ -119,7 +119,7 @@ export function SiteHeader() {
                 href="/contact/"
                 className="inline-flex items-center gap-2 bg-[#F28A00] hover:bg-[#d97c00] text-white text-sm font-semibold px-4 py-2.5 rounded-md shadow-sm transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#F28A00]"
               >
-                <span>Mobilize Crew</span>
+                <span>Contact Us</span>
                 <IconChevronRight className="w-4 h-4" />
               </Link>
             </div>

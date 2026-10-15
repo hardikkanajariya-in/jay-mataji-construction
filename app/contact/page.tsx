@@ -58,9 +58,6 @@ export default function ContactPage() {
                           >
                             {companyData.contactPhoneFormatted}
                           </a>
-                          <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 bg-[#155497]/10 text-[#155497] rounded">
-                            Primary
-                          </span>
                         </div>
                         <div className="flex items-center gap-2">
                           <a
@@ -69,9 +66,6 @@ export default function ContactPage() {
                           >
                             {companyData.secondaryPhoneFormatted}
                           </a>
-                          <span className="text-[10px] uppercase font-bold px-1.5 py-0.5 bg-slate-100 text-[#5A6A78] rounded">
-                            Secondary
-                          </span>
                         </div>
                       </div>
                     </div>
