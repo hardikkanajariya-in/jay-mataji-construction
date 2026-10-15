@@ -21,6 +21,8 @@ export function CoreServiceAreas() {
         return IconShield;
       case "reactor":
         return IconWrench;
+      case "maintenance":
+        return IconWrench;
       case "manpower":
       default:
         return IconUsers;
@@ -134,7 +136,7 @@ export function CoreServiceAreas() {
               <div
                 key={area.id}
                 className={`bg-white rounded-xl border border-[#DCE2E5] p-5 shadow-xs hover:border-[#155497]/50 hover:shadow-md transition-all flex flex-col justify-between ${
-                  isLast ? "md:col-span-2 lg:col-span-1" : ""
+                  isLast && coreServiceAreas.length % 2 !== 0 ? "md:col-span-2 lg:col-span-1" : ""
                 }`}
               >
                 <div>

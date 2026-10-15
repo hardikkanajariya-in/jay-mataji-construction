@@ -21,5 +21,6 @@ export const footerQuickLinks: NavItem[] = [
 export const footerServiceLinks: NavItem[] = [
   { label: "Heat Exchanger Overhauls", href: "/services/#heat-exchangers" },
   { label: "Distillation Columns & Trays", href: "/services/#distillation-columns" },
+  { label: "Plant & Equipment Maintenance", href: "/services/#plant-equipment-maintenance" },
   { label: "Engineered Scaffolding", href: "/services/#engineered-scaffolding" }
 ];

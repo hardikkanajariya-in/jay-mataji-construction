@@ -16,7 +16,7 @@ export interface CoreServiceArea {
   title: string;
   description: string;
   equipmentSummary: string;
-  iconName: "heat-exchanger" | "column" | "cooler" | "reactor" | "manpower";
+  iconName: "heat-exchanger" | "column" | "cooler" | "reactor" | "manpower" | "maintenance";
 }
 
 export const coreServiceAreas: CoreServiceArea[] = [
@@ -35,6 +35,13 @@ export const coreServiceAreas: CoreServiceArea[] = [
     iconName: "column"
   },
   {
+    id: "plant-equipment-maintenance-area",
+    title: "Plant & Industrial Equipment Maintenance",
+    description: "Comprehensive routine, preventive, AMC, and emergency mechanical maintenance services for operational refinery units, petrochemical plants, utility facilities, and industrial complexes.",
+    equipmentSummary: "Running process units, rotating machinery, static vessels, piping manifolds, and auxiliary equipment",
+    iconName: "maintenance"
+  },
+  {
     id: "fin-fan-coolers-area",
     title: "Fin-Fan Air Coolers Maintenance",
     description: "All types of Fin-fan air-cooled heat exchangers maintenance, repair, and replacement jobs with header box plug servicing, tube jetting, fin comb cleaning, and pressure testing.",
@@ -51,7 +58,7 @@ export const coreServiceAreas: CoreServiceArea[] = [
   {
     id: "manpower-supply-area",
     title: "All Types Manpower Supply (700+ Capacity)",
-    description: "700+ vetted, experienced turnaround manpower available at any time with complete tooling & trackers, scalable to arrange additional crews as per client turnaround requirement.",
+    description: "700+ vetted, experienced turnaround and maintenance manpower available at any time with complete tooling & trackers, scalable to arrange additional crews as per client requirement.",
     equipmentSummary: "Millwright fitters, certified welders, riggers, hydro jetters, safety marshals & supervisors",
     iconName: "manpower"
   }
@@ -62,8 +69,8 @@ export const turnaroundHighlights = {
   experienceYears: "12+",
   availableManpower: "700+",
   scalability: "Scalable anytime as per client requirement",
-  toolsAndTrackers: "Dedicated specialized tooling and progress trackers available for all turnaround jobs",
-  marketTrackRecord: "Executed large shutdown jobs in almost all refineries across India and select international facilities"
+  toolsAndTrackers: "Dedicated specialized tooling and progress trackers available for all turnaround and maintenance jobs",
+  marketTrackRecord: "Executed large shutdown and maintenance jobs in almost all refineries across India and select international facilities"
 };
 
 export const servicesData: ServiceItem[] = [
@@ -233,5 +240,30 @@ export const servicesData: ServiceItem[] = [
       "Utility and offsite manifolds"
     ],
     imagePath: "/images/services/shutdown-manpower.jpg"
+  },
+  {
+    id: "plant-equipment-maintenance",
+    slug: "plant-equipment-maintenance-services",
+    title: "Plant & Equipment Maintenance Services",
+    category: "site-execution",
+    categoryLabel: "Plant Maintenance & Turnaround",
+    shortDescription: "Routine, preventive, AMC, and emergency mechanical maintenance services for continuous plant operations, utility systems, and process equipment.",
+    fullDescription: "Jay Mataji Construction provides comprehensive on-site plant and equipment maintenance services ('Maintenance job') beyond scheduled turnarounds. Our experienced crews execute annual maintenance contracts (AMC), routine mechanical upkeep, flange management, preventive servicing of static and utility equipment, piping repairs, and emergency breakdown rectification for refineries, petrochemical plants, and chemical processing facilities.",
+    documentedActivities: [
+      "Routine and preventive mechanical maintenance across operational process and utility units",
+      "Annual Maintenance Contracts (AMC) and ongoing on-site mechanical contractor support",
+      "Emergency breakdown troubleshooting, rapid mobilization, and round-the-clock repair response",
+      "Controlled bolt tensioning, torque tightening, flange inspection, and gasket replacement",
+      "Piping spool fabrication, line modifications, valve gland repacking, and hydrostatic testing",
+      "Preventive overhaul of static equipment, heat transfer equipment, and auxiliary units",
+      "Routine servicing of utility systems, pump manifolds, and cooling water circuits"
+    ],
+    equipmentHandled: [
+      "Refinery and petrochemical continuous process units",
+      "Utility plants, cooling towers, and steam manifolds",
+      "Static pressure vessels, heat exchangers, and storage tankages",
+      "Industrial piping networks, valves, and rotating equipment auxiliaries"
+    ],
+    imagePath: "/images/equipment-servicing.jpg"
   }
 ];

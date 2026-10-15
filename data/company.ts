@@ -2,28 +2,54 @@ export interface CompanyProfile {
   name: string;
   shortName: string;
   tagline: string;
+  contactPerson: string;
   establishedYear: number;
   statedManpowerCapacity: string;
   totalDocumentedProjects: number;
   contactEmail: string;
+  additionalEmail: string;
   contactPhone: string;
+  contactPhoneFormatted: string;
+  secondaryPhone: string;
+  secondaryPhoneFormatted: string;
+  address: {
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    pincode: string;
+    full: string;
+  };
   headquarters: string;
   coverage: string;
   operatingPhilosophy: string;
 }
 
 export const companyData: CompanyProfile = {
-  name: "JAY MATAJI CONSTRUCTION",
+  name: "Jay Mataji Construction",
   shortName: "JMC",
   tagline: "Shutdown & Maintenance Solutions",
+  contactPerson: "Sanjay Harshalia",
   establishedYear: 2014,
   statedManpowerCapacity: "700+ technical personnel at any time, with rapid scalability per turnaround scope",
   totalDocumentedProjects: 49,
-  contactEmail: "contact@jaymatajiconstruction.com", // Configurable production mailbox
-  contactPhone: "+91 98765 43210", // Client to provide final confirmed official hotline
-  headquarters: "Gujarat, India",
+  contactEmail: "sanjayharshalia@jaymatajiconstruction.com",
+  additionalEmail: "sanjayharshalia200@gmail.com",
+  contactPhone: "9033539524",
+  contactPhoneFormatted: "+91 90335 39524",
+  secondaryPhone: "8511144006",
+  secondaryPhoneFormatted: "+91 85111 44006",
+  address: {
+    line1: "A-23, Amrapali Residency",
+    line2: "Opp. Giriraj Nagar, Bajwa",
+    city: "Vadodara",
+    state: "Gujarat",
+    pincode: "391310",
+    full: "A-23, Amrapali Residency, Opp. Giriraj Nagar, Bajwa, Vadodara, Gujarat – 391310"
+  },
+  headquarters: "Vadodara, Gujarat, India",
   coverage: "Pan-India Refineries & Petrochemical Complexes (Jamnagar, Mumbai, Mangalore, Vizag, Vadinar, Bhatinda, Barauni, Haldia, Kochi, Assam, Nagothane)",
-  operatingPhilosophy: "Dependable turnaround execution, mechanical precision, and experienced industrial manpower deployed to meet strict refinery shutdown windows."
+  operatingPhilosophy: "Dependable turnaround execution, routine & emergency plant maintenance, mechanical precision, and experienced industrial manpower deployed to meet strict industrial windows."
 };
 
 export const verifiedMetrics = [

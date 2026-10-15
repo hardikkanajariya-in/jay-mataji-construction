@@ -258,7 +258,7 @@ export function EnquiryForm() {
                 disabled={isSubmitting}
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+91 98765 XXXXX"
+                placeholder="+91 90335 XXXXX"
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               />
             </div>
@@ -277,6 +277,7 @@ export function EnquiryForm() {
                 onChange={(e) => setFormData({ ...formData, equipmentCategory: e.target.value })}
                 className="w-full px-3.5 py-2.5 bg-slate-50 border border-[#DCE2E5] rounded-lg text-sm text-[#292929] focus:outline-none focus:ring-2 focus:ring-[#155497] focus:bg-white transition-all disabled:opacity-50"
               >
+                <option value="Plant Maintenance">Plant &amp; Equipment Maintenance (Routine / AMC / Breakdown)</option>
                 <option value="Heat Exchangers">Heat Exchangers Overhaul</option>
                 <option value="Distillation Columns">Distillation Columns &amp; Trays</option>
                 <option value="Reactors & Catalyst">Reactors &amp; Catalyst Handling</option>
