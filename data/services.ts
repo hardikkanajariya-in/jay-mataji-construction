@@ -49,13 +49,6 @@ export const coreServiceAreas: CoreServiceArea[] = [
     iconName: "cooler"
   },
   {
-    id: "reactors-regenerators-area",
-    title: "Reactor & Regenerator Catalyst Turnaround",
-    description: "Reactor and regenerator maintenance, repair, and replacement jobs with controlled atmosphere blinding, catalyst unloading/loading, internal grid repairs, box-up, and de-blinding.",
-    equipmentSummary: "Hydrocracker, FCCU, DHDT, DHDS, reforming reactors & regenerators",
-    iconName: "reactor"
-  },
-  {
     id: "manpower-supply-area",
     title: "All Types Manpower Supply (700+ Capacity)",
     description: "700+ vetted, experienced turnaround and maintenance manpower available at any time with complete tooling & trackers, scalable to arrange additional crews as per client requirement.",
