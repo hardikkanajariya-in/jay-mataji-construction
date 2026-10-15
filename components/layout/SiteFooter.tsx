@@ -45,7 +45,7 @@ export function SiteFooter() {
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {/* Brand Column */}
           <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
@@ -106,26 +106,6 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Refinery Experience Locations */}
-          <div>
-            <h3 className="text-sm font-bold uppercase tracking-wider text-slate-100 mb-4 pb-2 border-b border-white/10">
-              Documented Footprint
-            </h3>
-            <p className="text-xs text-slate-300 leading-relaxed mb-3">
-              Turnaround &amp; maintenance jobs executed across key industrial hubs:
-            </p>
-            <div className="flex flex-wrap gap-1.5 text-[11px]">
-              {["Jamnagar", "Mangalore", "Mumbai", "Vizag", "Vadinar", "Bhatinda", "Barauni", "Haldia", "Kochi", "Numaligarh", "Nagothane"].map((hub) => (
-                <span
-                  key={hub}
-                  className="px-2 py-0.5 bg-white/10 rounded text-slate-200 border border-white/10"
-                >
-                  {hub}
-                </span>
-              ))}
-            </div>
           </div>
 
           {/* Office & Direct Contact Column */}
