@@ -142,30 +142,6 @@ export const servicesData: ServiceItem[] = [
     imagePath: "/images/services/vessels-and-spheres.jpg"
   },
   {
-    id: "heaters-and-furnaces",
-    slug: "heaters-boilers-furnaces",
-    title: "Heaters, Boilers & Process Furnaces",
-    category: "static-equipment",
-    categoryLabel: "Static Equipment",
-    shortDescription: "Cleaning of heaters, inert blasting, hydroblasting, de-coking of heaters, chemical wash of ACFM cleaning, and burner/box-up servicing.",
-    fullDescription: "Turnaround maintenance for refinery process fired heaters, crude heaters, cracking furnaces, and auxiliary industrial boilers requiring mechanical decoking, inert blasting, and non-destructive surface preparation.",
-    documentedActivities: [
-      "Process coil blinding and radiant/convection section opening",
-      "Mechanical and hydroblasting decoking of heater tube passes",
-      "Inert blasting and high-pressure washing of outer tube surfaces",
-      "Chemical wash and ACFM (Alternating Current Field Measurement) cleaning",
-      "Damper, peep door, and burner servicing support",
-      "Furnace header box opening, plug servicing, and hydro testing"
-    ],
-    equipmentHandled: [
-      "Crude & Vacuum Fired Heaters",
-      "Reformer & Cracker Furnaces",
-      "Industrial Utility Boilers",
-      "Convection & Radiant Coils"
-    ],
-    imagePath: "/images/services/heaters-furnaces.jpg"
-  },
-  {
     id: "fin-fan-coolers",
     slug: "fin-fan-cooler-maintenance",
     title: "Fin-Fan Air-Cooled Heat Exchangers",
@@ -187,30 +163,6 @@ export const servicesData: ServiceItem[] = [
       "Multi-bay air cooler bundles"
     ],
     imagePath: "/images/services/fin-fan-coolers.jpg"
-  },
-  {
-    id: "reactors-regenerators",
-    slug: "reactor-regenerator-maintenance",
-    title: "Reactors & Regenerators (Catalyst Handling)",
-    category: "static-equipment",
-    categoryLabel: "Static Equipment",
-    shortDescription: "Blinding, opening, catalyst unloading and loading under controlled conditions, internal grid repair, box-up, and de-blinding.",
-    fullDescription: "High-hazard, critical-path turnaround maintenance for catalytic reactors, hydrotreaters, hydrocrackers, and FCCU regenerators executing controlled unloading, skimming, and dense loading.",
-    documentedActivities: [
-      "Safe nitrogen purge isolation and reactor head unbolting",
-      "Gravity dumping, vacuum unloading, and segregation of spent catalyst",
-      "Coke removal, internal cleaning, and decontamination",
-      "Dense and sock catalyst loading with precision distribution profiling",
-      "Internal support grid, scallop, and center pipe inspection and repair",
-      "Final box-up, torque verification, and systematic de-blinding"
-    ],
-    equipmentHandled: [
-      "FCCU Reactors & Regenerators",
-      "Hydrocracker (HCU) Reactors",
-      "Diesel Hydrotreater (DHDT / DHDS) Reactors",
-      "Continuous Catalytic Reformers (CCR)"
-    ],
-    imagePath: "/images/services/reactors-regenerators.jpg"
   },
   {
     id: "industrial-valves",
@@ -235,78 +187,6 @@ export const servicesData: ServiceItem[] = [
       "High-pressure wedge and ball valves"
     ],
     imagePath: "/images/services/industrial-valves.jpg"
-  },
-  {
-    id: "process-pumps",
-    slug: "pump-overhaul-servicing",
-    title: "Process Pump Overhaul & Alignment",
-    category: "rotating-equipment",
-    categoryLabel: "Rotating & Mechanical Servicing",
-    shortDescription: "Repairing and overhauling of all types of pumps, mechanical seal replacement, dynamic balancing, and laser alignment.",
-    fullDescription: "Turnaround overhauls of single and multi-stage process pumps handling hydrocarbons, sour water, boiler feedwater, and chemical additives with laser precision shaft alignment.",
-    documentedActivities: [
-      "Coupling de-coupling and pump pull-out from baseplate",
-      "Repairing and overhauling of all types of process pumps",
-      "Replacement of mechanical seals, bearing sets, and wear rings",
-      "Internal casing clearance restoration and dynamic impeller checks",
-      "Motor-pump laser alignment to stringent engineering tolerances",
-      "Solo run verification and mechanical witness sign-off"
-    ],
-    equipmentHandled: [
-      "Centrifugal hydrocarbon process pumps",
-      "Multi-stage boiler feed pumps",
-      "Chemical injection & metering pumps",
-      "Vertical sump and canned motor pumps"
-    ],
-    imagePath: "/images/services/process-pumps.jpg"
-  },
-  {
-    id: "compressors-and-motors",
-    slug: "compressor-motor-servicing",
-    title: "Compressor & Motor Overhauling, Erection & Alignment",
-    category: "rotating-equipment",
-    categoryLabel: "Rotating & Mechanical Servicing",
-    shortDescription: "Overhauling, erection, and precision alignment of compressor and motor assemblies during turnaround outages.",
-    fullDescription: "Comprehensive mechanical servicing of reciprocating and centrifugal gas compressors, industrial blowers, and high-voltage electric motor drives with laser and dial-indicator alignment.",
-    documentedActivities: [
-      "Overhauling of all reciprocating and centrifugal process gas compressors",
-      "Erection and mechanical re-assembly of compressor skids and baseplates",
-      "Precision cold and thermal growth alignment with electric motor drivers",
-      "Cylinder head and suction/discharge valve removal and refurbishment",
-      "Piston, rod, and crosshead clearance checks and packing replacement",
-      "Lube oil console flushing, barrier seal checks, and coupling box-up"
-    ],
-    equipmentHandled: [
-      "Reciprocating gas compressors",
-      "Centrifugal process compressors",
-      "High-voltage electric motor drivers",
-      "Industrial combustion blowers"
-    ],
-    imagePath: "/images/services/compressors-motors.jpg"
-  },
-  {
-    id: "cooling-towers",
-    slug: "cooling-tower-maintenance",
-    title: "Cooling Tower Fan & Gearbox Assembly",
-    category: "rotating-equipment",
-    categoryLabel: "Rotating & Mechanical Servicing",
-    shortDescription: "Replacement of fan and gear box assembly, axial blade pitch balancing, driveshaft dynamic alignment, and oil servicing.",
-    fullDescription: "Specialized maintenance and replacement of large industrial cooling tower mechanical assemblies to sustain refinery utility cooling water circulation.",
-    documentedActivities: [
-      "Safe isolation, lockout-tagout, and fan deck access scaffolding",
-      "Replacement of cooling tower fan blades and hub assembly",
-      "Replacement and overhauling of right-angle drive gearbox assembly",
-      "Floating driveshaft and flexible coupling precision alignment",
-      "Blade pitch angle calibration, static balancing, and vibration testing",
-      "Lubrication fill, seals replacement, and full mechanical test run"
-    ],
-    equipmentHandled: [
-      "Induced draft cooling towers",
-      "Right-angle fan gearboxes",
-      "Variable pitch axial fans",
-      "Composite drive shafts"
-    ],
-    imagePath: "/images/services/cooling-towers.jpg"
   },
   {
     id: "engineered-scaffolding",

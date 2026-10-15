@@ -106,7 +106,7 @@ export function ServicesPillars() {
                 Rotating &amp; Mechanical Overhaul
               </h3>
               <p className="text-sm text-[#5A6A78] leading-relaxed mb-6">
-                Precision alignment, lapping, and complete mechanical turnaround servicing of process pumps, compressors, drivers, and industrial cooling towers.
+                Precision alignment, lapping, and complete mechanical turnaround servicing of compressors, drivers, and industrial cooling towers.
               </p>
 
               <div className="space-y-3 pt-2 border-t border-[#DCE2E5]">
