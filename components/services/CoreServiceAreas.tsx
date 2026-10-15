@@ -19,8 +19,6 @@ export function CoreServiceAreas() {
         return IconActivity;
       case "cooler":
         return IconShield;
-      case "reactor":
-        return IconWrench;
       case "maintenance":
         return IconWrench;
       case "manpower":
@@ -46,7 +44,7 @@ export function CoreServiceAreas() {
               Specialized Static Equipment &amp; Refinery Shutdowns
             </h2>
             <p className="text-sm sm:text-base text-slate-200 leading-relaxed mb-4">
-              Established in 2014 with a clear vision to provide expert manpower to execute critical static equipment maintenance jobs, scaffolding jobs, and reactor jobs in refineries. Since inception, JAY MATAJI CONSTRUCTION has executed several large shutdown jobs in almost all refineries across India and abroad.
+              Established in 2014 with a clear vision to provide expert manpower to execute critical static equipment maintenance jobs, scaffolding jobs, and plant mechanical maintenance in refineries. Since inception, JAY MATAJI CONSTRUCTION has executed several large shutdown jobs in almost all refineries across India and abroad.
             </p>
             <div className="flex flex-wrap items-center gap-3 text-xs sm:text-sm text-slate-200 pt-2 border-t border-white/10">
               <span className="inline-flex items-center gap-1.5 font-semibold text-white">

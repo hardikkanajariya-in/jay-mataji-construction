@@ -9,7 +9,7 @@ export function ProjectsTeaser() {
   const highlightedProjects = [
     projectsData.find((p) => p.srNo === 49)!, // 2026 Turnkey Nayara
     projectsData.find((p) => p.srNo === 48)!, // 2025 HMEL Bhatinda
-    projectsData.find((p) => p.srNo === 32)!, // 2022 RIL Jamnagar FCCU Reactor
+    projectsData.find((p) => p.srNo === 32)!, // 2022 RIL Jamnagar FCCU
     projectsData.find((p) => p.srNo === 6)!   // 2015 Essar Vadinar Exchangers
   ];
 

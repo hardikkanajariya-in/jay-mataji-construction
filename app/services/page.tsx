@@ -8,7 +8,7 @@ import { ContactCTA } from "@/components/home/ContactCTA";
 
 export const metadata: Metadata = {
   title: "Turnaround & Shutdown Services | JAY MATAJI CONSTRUCTION",
-  description: "Specialized in refinery turnaround and shutdown business since 2014. Critical static equipment, heat exchangers, columns, reactors, fin-fan coolers, 700+ manpower, and specialized tooling."
+  description: "Specialized in refinery turnaround, plant maintenance, and shutdown services since 2014. Critical static equipment, heat exchangers, columns, fin-fan coolers, 700+ manpower, and specialized tooling."
 };
 
 export default function ServicesPage() {
@@ -17,7 +17,7 @@ export default function ServicesPage() {
       <PageHeader
         badge="Scope Catalog"
         title="Refinery Shutdown &amp; Turnaround Services"
-        description="Established in 2014 specializing in critical static equipment, scaffolding, and reactor jobs across premier Indian and international refineries. Backed by 700+ manpower, dedicated tools, and daily progress trackers."
+        description="Established in 2014 specializing in critical static equipment, scaffolding, and plant maintenance services across premier Indian and international refineries. Backed by 700+ manpower, dedicated tools, and daily progress trackers."
         breadcrumbs={[{ label: "Services" }]}
       />
 

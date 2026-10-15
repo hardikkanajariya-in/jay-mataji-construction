@@ -1,6 +1,6 @@
 # JAY MATAJI CONSTRUCTION — Production Website
 
-A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTION**, an industrial contractor specializing in refinery turnaround, shutdown maintenance, static equipment overhaul, reactor catalyst handling, and specialized technical manpower supply.
+A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTION**, an industrial contractor specializing in refinery turnaround, shutdown maintenance, static equipment overhaul, plant maintenance services, and specialized technical manpower supply.
 
 ---
 
@@ -32,7 +32,7 @@ A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTIO
 |---|---|---|
 | `/` | **Home** | Editorial hero, verified proof strip, core service pillars, interactive 5-phase shutdown workflow, equipment diagrams, curated project highlights, about snippet, and enquiry CTA. |
 | `/about/` | **About Us** | Corporate background (Est. 2014), operational scope, pan-India refinery footprint (Jamnagar, Mangalore, Mumbai, Vizag, Vadinar, Bhatinda, Barauni, Haldia, Kochi, Assam, Nagothane). |
-| `/services/` | **Services** | 12 documented service packages categorized into Static Equipment, Rotating & Mechanical Servicing, and Site Execution & Manpower. |
+| `/services/` | **Services** | Documented service packages categorized into Static Equipment, Plant Maintenance & Servicing, and Site Execution & Manpower. |
 | `/projects/` | **Project Experience** | Data-driven interactive project register of all 49 contracts with real-time text search, year filter (2014–2026), category filter, sorting, and record detail inspector modal. |
 | `/contact/` | **Contact & Mobilization** | Practical industrial requisition form with input validation and static-compatible pre-formatted `mailto:` dispatch to operations. |
 
@@ -43,7 +43,7 @@ A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTIO
 All business logic and data records are separated from presentation in the `data/` directory:
 
 - `data/company.ts`: Company profile facts, verified metrics, and contact configuration.
-- `data/services.ts`: Catalog of all 12 verified service scopes, documented tasks, and equipment handled.
+- `data/services.ts`: Catalog of verified service scopes, documented tasks, and equipment handled.
 - `data/projects.ts`: Complete, typed historical dataset of 49 records (2014 to 2026) directly transcribed from the client's job register.
 - `data/navigation.ts`: Header, footer, and breadcrumb links.
 
@@ -65,7 +65,7 @@ All images are stored locally under `public/images/`:
 - `public/images/hero-refinery.jpg`: Original high-resolution daylight photograph of a refinery turnaround.
 - `public/images/heat-exchanger-maintenance.jpg`: Shell-and-tube heat exchanger maintenance scene.
 - `public/images/scaffolding-column-maintenance.jpg`: Column with engineered modular scaffolding.
-- `public/images/equipment-servicing.jpg`: Close-up mechanical servicing of heavy control valves and pumps.
+- `public/images/equipment-servicing.jpg`: Close-up mechanical servicing of heavy control valves and process equipment.
 
 ---
 

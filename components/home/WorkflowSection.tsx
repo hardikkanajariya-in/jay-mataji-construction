@@ -36,23 +36,23 @@ const workflowSteps: WorkflowStep[] = [
       "Removal of heat exchanger channel covers, floating heads, and shell covers",
       "Gas-free certified manway cover removal on distillation columns and vessels",
       "Disassembly of internal column tray manways, clamp rings, and packing retainers",
-      "Controlled reactor head unbolting and catalyst dumping chute attachment"
+      "Process vessel nozzle unbolting, demister pad removal, and access preparation"
     ],
-    equipmentFocus: "Shell-and-tube exchangers, distillation towers, reactors, accumulator drums"
+    equipmentFocus: "Shell-and-tube exchangers, distillation towers, separator drums, accumulator vessels"
   },
   {
     stepNumber: "03",
     title: "Cleaning, Overhaul & Servicing",
     shortTag: "Hydro Jetting & Overhauls",
-    summary: "Heavy mechanical descaling, catalyst handling, hydro jetting, and rotating machinery overhaul.",
+    summary: "Heavy mechanical descaling, high-pressure hydro jetting, valve servicing, and plant equipment upkeep.",
     documentedTasks: [
       "High-pressure hydro jetting and rotary mechanical brushing of exchanger tubes",
       "Sand blasting and Belzona erosion-resistant coating on tube sheets and heads",
       "Hydroblasting and grit cleaning of column trays, downcomers, and shell walls",
-      "Catalyst vacuum unloading, skimming, and inert-atmosphere loading",
-      "Pump mechanical seal replacement, valve seat lapping, and compressor overhaul"
+      "High-pressure tube jetting, descaling, and fin comb alignment on air coolers",
+      "Valve seat lapping, gland packing replacement, and mechanical piping maintenance"
     ],
-    equipmentFocus: "Tube bundles, column internal trays, fired heater tubes, pumps, valves"
+    equipmentFocus: "Tube bundles, column internal trays, pressure vessels, fin-fan tubes, valves"
   },
   {
     stepNumber: "04",
@@ -63,9 +63,9 @@ const workflowSteps: WorkflowStep[] = [
       "Silpan test and QA/QC witness inspection on reassembled column trays",
       "Hydrostatic testing of heat exchanger tube side and shell side at test pressures",
       "Valve body and seat hydro testing to certify zero passing",
-      "Alignment verification of pump-motor and compressor drive couplings"
+      "Torque tensioning verification and joint alignment on critical flanged connections"
     ],
-    equipmentFocus: "Exchanger tube-to-tubesheet joints, column tray levels, valve seats, pump shafts"
+    equipmentFocus: "Exchanger tube-to-tubesheet joints, column tray levels, valve seats, flange faces"
   },
   {
     stepNumber: "05",

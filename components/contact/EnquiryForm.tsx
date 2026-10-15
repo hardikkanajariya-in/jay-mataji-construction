@@ -280,10 +280,8 @@ export function EnquiryForm() {
                 <option value="Plant Maintenance">Plant &amp; Equipment Maintenance (Routine / AMC / Breakdown)</option>
                 <option value="Heat Exchangers">Heat Exchangers Overhaul</option>
                 <option value="Distillation Columns">Distillation Columns &amp; Trays</option>
-                <option value="Reactors & Catalyst">Reactors &amp; Catalyst Handling</option>
                 <option value="Vessels & Spheres">Vessels &amp; Spheres</option>
-                <option value="Heaters & Furnaces">Heaters, Boilers &amp; Furnaces</option>
-                <option value="Valves & Pumps">Valves, Pumps &amp; Compressors</option>
+                <option value="Industrial Valves">Industrial Valve Servicing &amp; Testing</option>
                 <option value="Engineered Scaffolding">Engineered Scaffolding Platforms</option>
                 <option value="Turnaround Manpower">Trade Crew Supply (Up to 700+)</option>
               </select>

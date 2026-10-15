@@ -6,7 +6,7 @@ import { IconChevronRight, IconWrench, IconActivity, IconUsers } from "@/compone
 
 export function ServicesPillars() {
   const staticServices = servicesData.filter((s) => s.category === "static-equipment").slice(0, 4);
-  const rotatingServices = servicesData.filter((s) => s.category === "rotating-equipment").slice(0, 2);
+  const maintenanceServices = servicesData.filter((s) => s.category === "plant-maintenance");
   const siteServices = servicesData.filter((s) => s.category === "site-execution");
 
   return (
@@ -26,14 +26,14 @@ export function ServicesPillars() {
           <SectionHeader
             badge="Industrial Capabilities"
             title="Our Shutdown & Maintenance Services"
-            description="Proven execution across static process units, rotating assemblies, and high-elevation refinery infrastructure with specialized tooling and experienced manpower."
+            description="Proven execution across static process units, plant equipment maintenance, and high-elevation refinery infrastructure with specialized tooling and experienced manpower."
             className="mb-0!"
           />
           <Link
             href="/services/"
             className="group mt-4 md:mt-0 inline-flex items-center gap-1.5 text-sm font-bold text-[#155497] hover:text-[#123A68]"
           >
-            <span>View All 12 Documented Scopes</span>
+            <span>View All {servicesData.length} Documented Scopes</span>
             <IconChevronRight className="w-4 h-4 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-1" />
           </Link>
         </div>
@@ -61,7 +61,7 @@ export function ServicesPillars() {
                 Static Equipment Maintenance
               </h3>
               <p className="text-sm text-[#5A6A78] leading-relaxed mb-6">
-                Specialized turnaround overhaul for critical pressure-containing refinery equipment including heat exchangers, columns, reactors, and furnaces.
+                Specialized turnaround overhaul for critical pressure-containing refinery equipment including heat exchangers, columns, vessels, and fin-fan coolers.
               </p>
 
               <div className="space-y-3 pt-2 border-t border-[#DCE2E5]">
@@ -85,7 +85,7 @@ export function ServicesPillars() {
             </div>
           </div>
 
-          {/* Pillar 2: Rotating & Mechanical Servicing */}
+          {/* Pillar 2: Plant Maintenance & Servicing */}
           <div className="group relative bg-[#F8FAFC] rounded-xl border border-[#DCE2E5] p-6 lg:p-8 flex flex-col justify-between hover:border-[#155497]/50 hover:bg-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
             {/* Top Brand Accent Line */}
             <div className="absolute top-0 inset-x-6 h-[3px] bg-[#123A68] rounded-t-full" />
@@ -103,32 +103,28 @@ export function ServicesPillars() {
                 <IconActivity className="w-6 h-6" />
               </div>
               <h3 className="text-xl font-bold text-[#292929] mb-2 group-hover:text-[#155497] transition-colors">
-                Rotating &amp; Mechanical Overhaul
+                Plant Maintenance &amp; Servicing
               </h3>
               <p className="text-sm text-[#5A6A78] leading-relaxed mb-6">
-                Precision alignment, lapping, and complete mechanical turnaround servicing of compressors, drivers, and industrial cooling towers.
+                Routine, preventive, AMC, and emergency mechanical upkeep, valve overhauls, hydrostatic testing, and piping repairs for continuous refinery units.
               </p>
 
               <div className="space-y-3 pt-2 border-t border-[#DCE2E5]">
-                {rotatingServices.map((service) => (
+                {maintenanceServices.map((service) => (
                   <div key={service.id} className="text-xs">
                     <span className="font-semibold text-[#292929] block">&bull; {service.title}</span>
                     <span className="text-[#5A6A78] pl-2 block text-[11px]">{service.shortDescription}</span>
                   </div>
                 ))}
-                <div className="text-xs">
-                  <span className="font-semibold text-[#292929] block">&bull; Cooling Tower Fan &amp; Gearbox</span>
-                  <span className="text-[#5A6A78] pl-2 block text-[11px]">Blade replacement, pitch balancing, and right-angle drive refurbishment.</span>
-                </div>
               </div>
             </div>
 
             <div className="pt-6 mt-6 border-t border-[#DCE2E5]">
               <Link
-                href="/services/#rotating-equipment"
+                href="/services/#plant-maintenance"
                 className="inline-flex items-center gap-1.5 text-xs font-bold text-[#155497] hover:text-[#123A68]"
               >
-                <span>Explore Mechanical Servicing</span>
+                <span>Explore Plant Maintenance Scopes</span>
                 <IconChevronRight className="w-3.5 h-3.5 text-[#F28A00] transition-transform duration-200 group-hover:translate-x-1" />
               </Link>
             </div>

@@ -17,12 +17,12 @@ interface ServiceCatalogProps {
   services: ServiceItem[];
 }
 
-type CategoryFilter = "all" | "static-equipment" | "rotating-equipment" | "site-execution";
+type CategoryFilter = "all" | "static-equipment" | "plant-maintenance" | "site-execution";
 
 const categories: { key: CategoryFilter; label: string; icon: React.ComponentType<{ className?: string }> }[] = [
   { key: "all", label: "All Scopes", icon: IconShield },
   { key: "static-equipment", label: "Static Equipment", icon: IconWrench },
-  { key: "rotating-equipment", label: "Rotating & Mechanical", icon: IconActivity },
+  { key: "plant-maintenance", label: "Plant Maintenance", icon: IconActivity },
   { key: "site-execution", label: "Scaffolding & Manpower", icon: IconUsers }
 ];
 
@@ -77,7 +77,7 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
     return {
       all: services.length,
       "static-equipment": services.filter((s) => s.category === "static-equipment").length,
-      "rotating-equipment": services.filter((s) => s.category === "rotating-equipment").length,
+      "plant-maintenance": services.filter((s) => s.category === "plant-maintenance").length,
       "site-execution": services.filter((s) => s.category === "site-execution").length
     };
   }, [services]);

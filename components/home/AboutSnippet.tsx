@@ -60,13 +60,13 @@ export function AboutSnippet() {
             </h2>
 
             <p className="text-base text-[#5A6A78] leading-relaxed">
-              Founded in 2014, Jay Mataji Construction was established with a singular focus: to provide expert technical manpower and precision site execution for critical static equipment maintenance, scaffolding, and catalytic reactor jobs during demanding refinery shutdowns.
+              Founded in 2014, Jay Mataji Construction was established with a singular focus: to provide expert technical manpower and precision site execution for critical static equipment maintenance, scaffolding, and plant maintenance contracts during demanding refinery shutdowns.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 py-2">
               <div className="flex items-start gap-2.5 p-2 rounded-lg bg-[#F8FAFC] border border-[#DCE2E5] text-xs sm:text-sm text-[#292929] hover:border-[#155497]/30 transition-colors">
                 <IconCheckCircle className="w-4 h-4 text-[#155497] flex-shrink-0 mt-0.5" />
-                <span>Specialized in refinery static &amp; rotating maintenance</span>
+                <span>Specialized in refinery static &amp; plant equipment maintenance</span>
               </div>
               <div className="flex items-start gap-2.5 p-2 rounded-lg bg-[#F8FAFC] border border-[#DCE2E5] text-xs sm:text-sm text-[#292929] hover:border-[#155497]/30 transition-colors">
                 <IconCheckCircle className="w-4 h-4 text-[#155497] flex-shrink-0 mt-0.5" />

@@ -9,21 +9,28 @@ export const metadata: Metadata = {
     default: "Jay Mataji Construction | Shutdown & Maintenance Solutions",
     template: "%s | Jay Mataji Construction"
   },
-  description: "Specialized industrial contractor providing refinery turnaround, shutdown maintenance, static equipment overhaul, reactor catalyst handling, and 700+ technical manpower across India.",
+  description: "Specialized industrial contractor providing refinery turnaround, shutdown maintenance, static equipment overhaul, plant maintenance services, and 700+ technical manpower across India.",
   keywords: [
     "Refinery shutdown contractor",
     "Turnaround maintenance",
     "Heat exchanger overhaul",
     "Distillation column revamp",
-    "Reactor catalyst loading",
+    "Plant equipment maintenance",
     "Refinery manpower supply",
     "Industrial scaffolding",
     "Static equipment maintenance India"
   ],
   authors: [{ name: "Jay Mataji Construction" }],
   icons: {
-    icon: "/images/brand/logo.jpg",
-    apple: "/images/brand/logo.jpg"
+    icon: [
+      { url: "/images/brand/logo.jpg" },
+      { url: "/images/brand/logo.jpg", sizes: "32x32", type: "image/jpeg" },
+      { url: "/images/brand/logo.jpg", sizes: "192x192", type: "image/jpeg" }
+    ],
+    shortcut: "/images/brand/logo.jpg",
+    apple: [
+      { url: "/images/brand/logo.jpg", sizes: "180x180", type: "image/jpeg" }
+    ]
   },
   openGraph: {
     title: "Jay Mataji Construction | Shutdown & Maintenance Solutions",

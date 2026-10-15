@@ -96,7 +96,7 @@ export function HeroSection() {
             </h1>
 
             <p className="text-base sm:text-lg text-[#5A6A78] leading-relaxed max-w-2xl font-normal">
-              Jay Mataji Construction provides specialized turnaround execution, static equipment maintenance, column revamping, catalyst handling, and skilled industrial manpower for premier Indian refineries and petrochemical plants.
+              Jay Mataji Construction provides specialized turnaround execution, static equipment maintenance, column revamping, plant maintenance services, and skilled industrial manpower for premier Indian refineries and petrochemical plants.
             </p>
 
             {/* Quick Proof Pills with Refined Hover States */}
@@ -167,7 +167,7 @@ export function HeroSection() {
                   <div className="flex items-center justify-between text-xs">
                     <div>
                       <span className="font-bold text-[#155497] block sm:inline">Refinery Shutdown Execution</span>
-                      <span className="text-[#5A6A78] block text-[11px] mt-0.5">Static &amp; Rotating Equipment &bull; 2014–2026</span>
+                      <span className="text-[#5A6A78] block text-[11px] mt-0.5">Static &amp; Plant Equipment Maintenance &bull; 2014–2026</span>
                     </div>
                     <span className="px-2 py-0.5 rounded bg-[#155497]/10 text-[#155497] font-semibold text-[10px] whitespace-nowrap self-start sm:self-center">
                       Verified Track Record

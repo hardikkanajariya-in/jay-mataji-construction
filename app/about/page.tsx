@@ -19,7 +19,7 @@ const keyRefineryHubs = [
   { name: "Mumbai, Maharashtra", desc: "PRIME-G, ARU, SWSU, MR Loup, CCR/ISOM/DHT units" },
   { name: "Vizag, Andhra Pradesh", desc: "DHDS block and CDU-3 towers and exchangers" },
   { name: "Vadinar, Gujarat", desc: "VGO, CDU-1, DHDT, SRU and utility blocks at Nayara" },
-  { name: "Bhatinda, Punjab", desc: "HMEL FCCU catalyst coke removal & breechlock work" },
+  { name: "Bhatinda, Punjab", desc: "HMEL FCCU breechlock & exchanger shutdown maintenance" },
   { name: "Barauni & Haldia", desc: "IOCL Barauni & HPL Haldia naphtha cracker exchangers" },
   { name: "Kochi, Kerala", desc: "BPCL Kochi FCCU columns & Air Products Kochi units" }
 ];
@@ -30,7 +30,7 @@ export default function AboutPage() {
       <PageHeader
         badge="Company Overview"
         title="Industrial Turnaround Execution Since 2014"
-        description="Jay Mataji Construction was established with a singular mission: to provide expert technical manpower and disciplined mechanical execution for complex static equipment maintenance, scaffolding, and reactor overhauls."
+        description="Jay Mataji Construction was established with a singular mission: to provide expert technical manpower and disciplined mechanical execution for complex static equipment maintenance, scaffolding, and plant maintenance operations."
         breadcrumbs={[{ label: "About Us" }]}
       />
 
@@ -51,7 +51,7 @@ export default function AboutPage() {
                   Established in <strong>2014</strong>, <strong className="text-[#292929]">JAY MATAJI CONSTRUCTION</strong> was founded to meet the rigorous demands of India&apos;s refining and petrochemical sector during critical plant shutdowns. Turnarounds leave zero margin for error: every hour off-stream carries substantial commercial impact, demanding contractor crews with verified equipment familiarity and strict procedural compliance.
                 </p>
                 <p>
-                  Since our inception, our personnel have executed multiple large turnaround and shutdown contracts in almost all major refineries across India, as well as selected overseas assignments. Our core strengths center on critical static equipment—heat exchangers, distillation towers, reactors, and furnaces—supported by dedicated mechanical tooling and rapid manpower mobilization.
+                  Since our inception, our personnel have executed multiple large turnaround and shutdown contracts in almost all major refineries across India, as well as selected overseas assignments. Our core strengths center on critical static equipment—heat exchangers, distillation towers, pressure vessels, and fin-fan coolers—supported by dedicated mechanical tooling and rapid manpower mobilization.
                 </p>
               </div>
 

@@ -2,7 +2,7 @@ export interface ServiceItem {
   id: string;
   slug: string;
   title: string;
-  category: "static-equipment" | "rotating-equipment" | "site-execution";
+  category: "static-equipment" | "plant-maintenance" | "site-execution";
   categoryLabel: string;
   shortDescription: string;
   fullDescription: string;
@@ -16,7 +16,7 @@ export interface CoreServiceArea {
   title: string;
   description: string;
   equipmentSummary: string;
-  iconName: "heat-exchanger" | "column" | "cooler" | "reactor" | "manpower" | "maintenance";
+  iconName: "heat-exchanger" | "column" | "cooler" | "manpower" | "maintenance";
 }
 
 export const coreServiceAreas: CoreServiceArea[] = [
@@ -28,10 +28,10 @@ export const coreServiceAreas: CoreServiceArea[] = [
     iconName: "heat-exchanger"
   },
   {
-    id: "columns-vessels-furnaces-area",
-    title: "Columns, Vessels, Heaters & Boilers",
-    description: "Turnaround maintenance, repair, and replacement of distillation columns, pressure vessels, fired heaters, boilers, and furnaces with tray revamps, decoking, and ACFM chemical wash.",
-    equipmentSummary: "Distillation towers, trays/packings, separator drums, LPG spheres, fired heaters & boilers",
+    id: "columns-vessels-area",
+    title: "Columns, Trays & Process Vessels",
+    description: "Turnaround maintenance, repair, and overhaul of distillation columns, pressure vessels, separator drums, and storage spheres with tray revamps, internal cleaning, and box-up.",
+    equipmentSummary: "Distillation towers, trays/packings, separator drums, LPG spheres & pressure vessels",
     iconName: "column"
   },
   {
@@ -123,13 +123,13 @@ export const servicesData: ServiceItem[] = [
     title: "Vessels, Drums & Storage Spheres",
     category: "static-equipment",
     categoryLabel: "Static Equipment",
-    shortDescription: "Opening, confined space cleaning, unloading/loading of catalyst, servicing catalyst pipes, and chemical vessel passivation.",
-    fullDescription: "Specialized turnkey servicing of high-pressure separators, accumulator drums, and pressurized LPG/chemical spheres including gas-free opening, internal washing, catalyst handling, and protective passivation.",
+    shortDescription: "Opening, confined space cleaning, internal inspection, shell descaling, and chemical vessel passivation.",
+    fullDescription: "Specialized turnkey servicing of high-pressure separators, accumulator drums, and pressurized LPG/chemical spheres including gas-free opening, internal washing, mechanical cleaning, and protective passivation.",
     documentedActivities: [
       "Isolation, positive blinding, and certified gas-free manway opening",
       "Internal cleaning, sludge extraction, and hydroblasting",
-      "Unloading and fresh charge loading of catalyst types and adsorbent media",
-      "Servicing, inspection, and replacement of internal catalyst pipes and distributor nozzles",
+      "Internal tray, demister pad, and vessel nozzle inspection and cleaning",
+      "Servicing, inspection, and replacement of internal piping, distributor nozzles, and deflectors",
       "Vessel internal passivation and chemical surface protective treatment",
       "Precision torque-controlled box-up with fresh gaskets and joint hydro testing"
     ],
@@ -168,8 +168,8 @@ export const servicesData: ServiceItem[] = [
     id: "industrial-valves",
     slug: "valve-servicing-testing",
     title: "Industrial Valve Servicing & Hydro Testing",
-    category: "rotating-equipment",
-    categoryLabel: "Rotating & Mechanical Servicing",
+    category: "plant-maintenance",
+    categoryLabel: "Plant Maintenance & Servicing",
     shortDescription: "Internal and external cleaning of all valve types, servicing, hydro testing, replacement of internals, and boxing up.",
     fullDescription: "Complete in-situ and shop overhaul, internal seat lapping, gland packing replacement, and calibrated hydrostatic pressure testing for critical isolation, safety relief, and control valves.",
     documentedActivities: [
@@ -194,7 +194,7 @@ export const servicesData: ServiceItem[] = [
     title: "Engineered Refinery Scaffolding & Access",
     category: "site-execution",
     categoryLabel: "Site Execution & Manpower",
-    shortDescription: "Refinery scaffolding jobs for critical static equipment maintenance, columns, reactors, pipe racks, and furnace headers.",
+    shortDescription: "Refinery scaffolding jobs for critical static equipment maintenance, columns, vessels, pipe racks, and exchanger platforms.",
     fullDescription: "Safe, OSHA-compliant temporary access systems engineered to facilitate heavy mechanical maintenance at extreme refinery heights with certified cuplock and modular scaffolding.",
     documentedActivities: [
       "Scaffolding jobs for refinery static equipment and turnaround maintenance",
@@ -205,7 +205,7 @@ export const servicesData: ServiceItem[] = [
     ],
     equipmentHandled: [
       "Tall fractionation column scaffolding",
-      "Reactor head access platforms",
+      "Process vessel access platforms",
       "Overhead pipe rack cantilever scaffolds",
       "Confined space internal vessel scaffolds"
     ],
@@ -238,7 +238,7 @@ export const servicesData: ServiceItem[] = [
     id: "plant-equipment-maintenance",
     slug: "plant-equipment-maintenance-services",
     title: "Plant & Equipment Maintenance Services",
-    category: "site-execution",
+    category: "plant-maintenance",
     categoryLabel: "Plant Maintenance & Turnaround",
     shortDescription: "Routine, preventive, AMC, and emergency mechanical maintenance services for continuous plant operations, utility systems, and process equipment.",
     fullDescription: "Jay Mataji Construction provides comprehensive on-site plant and equipment maintenance services ('Maintenance job') beyond scheduled turnarounds. Our experienced crews execute annual maintenance contracts (AMC), routine mechanical upkeep, flange management, preventive servicing of static and utility equipment, piping repairs, and emergency breakdown rectification for refineries, petrochemical plants, and chemical processing facilities.",
@@ -249,13 +249,13 @@ export const servicesData: ServiceItem[] = [
       "Controlled bolt tensioning, torque tightening, flange inspection, and gasket replacement",
       "Piping spool fabrication, line modifications, valve gland repacking, and hydrostatic testing",
       "Preventive overhaul of static equipment, heat transfer equipment, and auxiliary units",
-      "Routine servicing of utility systems, pump manifolds, and cooling water circuits"
+      "Routine servicing of utility systems, piping manifolds, and circulating water circuits"
     ],
     equipmentHandled: [
       "Refinery and petrochemical continuous process units",
-      "Utility plants, cooling towers, and steam manifolds",
+      "Utility systems, offsites, and steam manifolds",
       "Static pressure vessels, heat exchangers, and storage tankages",
-      "Industrial piping networks, valves, and rotating equipment auxiliaries"
+      "Industrial piping networks, valves, and process equipment auxiliaries"
     ],
     imagePath: "/images/equipment-servicing.jpg"
   }
