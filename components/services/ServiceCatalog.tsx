@@ -1,7 +1,8 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ServiceItem } from "@/data/services";
 import {
   IconCheckCircle,
@@ -10,7 +11,8 @@ import {
   IconWrench,
   IconActivity,
   IconUsers,
-  IconShield
+  IconShield,
+  IconChevronRight
 } from "@/components/ui/Icons";
 
 interface ServiceCatalogProps {
@@ -29,30 +31,6 @@ const categories: { key: CategoryFilter; label: string; icon: React.ComponentTyp
 export function ServiceCatalog({ services }: ServiceCatalogProps) {
   const [activeCategory, setActiveCategory] = useState<CategoryFilter>("all");
   const [searchQuery, setSearchQuery] = useState("");
-  const [inspectingService, setInspectingService] = useState<ServiceItem | null>(null);
-
-  // Close modal on Escape
-  useEffect(() => {
-    function handleKeyDown(e: KeyboardEvent) {
-      if (e.key === "Escape" && inspectingService) {
-        setInspectingService(null);
-      }
-    }
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [inspectingService]);
-
-  // Prevent background scroll when modal open
-  useEffect(() => {
-    if (inspectingService) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-    return () => {
-      document.body.style.overflow = "unset";
-    };
-  }, [inspectingService]);
 
   const filteredServices = useMemo(() => {
     return services.filter((service) => {
@@ -179,12 +157,13 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
       {filteredServices.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredServices.map((service) => (
-            <div
+            <Link
               key={service.id}
               id={service.id}
-              className="bg-white rounded-xl border border-[#DCE2E5] overflow-hidden shadow-xs hover:border-[#155497]/50 hover:shadow-md transition-all flex flex-col justify-between group"
+              href={`/services/${service.slug}/`}
+              className="bg-white rounded-xl border border-[#DCE2E5] overflow-hidden shadow-xs hover:border-[#155497]/50 hover:shadow-md transition-all flex flex-col justify-between group h-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#155497] focus-visible:ring-offset-2"
             >
-              <div>
+              <div className="flex flex-col flex-1">
                 {/* Card Top Image with Badges */}
                 <div className="relative h-48 w-full bg-slate-100 border-b border-[#DCE2E5] overflow-hidden">
                   <Image
@@ -201,7 +180,7 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
                 </div>
 
                 {/* Content */}
-                <div className="p-6">
+                <div className="p-6 flex flex-col flex-1">
                   <h3 className="text-lg font-bold text-[#292929] mb-2 leading-snug group-hover:text-[#155497] transition-colors">
                     {service.title}
                   </h3>
@@ -209,7 +188,7 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
                     {service.shortDescription}
                   </p>
 
-                  <div className="pt-3 border-t border-[#DCE2E5]">
+                  <div className="pt-3 border-t border-[#DCE2E5] flex-1">
                     <h4 className="text-[11px] font-bold uppercase tracking-wider text-[#155497] mb-2">
                       Documented Scope Activities:
                     </h4>
@@ -222,9 +201,14 @@ export function ServiceCatalog({ services }: ServiceCatalogProps) {
                       ))}
                     </ul>
                   </div>
+
+                  <p className="mt-5 pt-4 border-t border-[#DCE2E5] inline-flex items-center gap-1.5 text-xs font-bold text-[#155497] group-hover:text-[#123A68]">
+                    <span>View scope details</span>
+                    <IconChevronRight className="w-4 h-4 text-[#F28A00] transition-transform group-hover:translate-x-0.5" />
+                  </p>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       ) : (

@@ -260,3 +260,7 @@ export const servicesData: ServiceItem[] = [
     imagePath: "/images/equipment-servicing.jpg"
   }
 ];
+
+export function getServiceBySlug(slug: string): ServiceItem | undefined {
+  return servicesData.find((service) => service.slug === slug);
+}
