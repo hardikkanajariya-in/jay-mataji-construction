@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import "./globals.css";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { NavigationProgress } from "@/components/layout/NavigationProgress";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jaymatajiconstruction.com"),
@@ -56,6 +58,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full bg-white text-[#292929]" data-scroll-behavior="smooth">
       <body className="min-h-full flex flex-col font-sans antialiased">
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         <SiteHeader />
         <main className="flex-1">
           {children}

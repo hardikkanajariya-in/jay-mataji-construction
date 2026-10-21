@@ -29,6 +29,11 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+body[data-navigating="true"] {
+  overflow: hidden;
+  cursor: wait;
+}
+
 ::selection {
   background-color: #155497;
   color: #ffffff;
