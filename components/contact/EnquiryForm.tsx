@@ -57,25 +57,48 @@ export function EnquiryForm() {
       return;
     }
 
+    const accessKey = integrationsConfig.web3forms.accessKey;
+    if (!accessKey) {
+      setSubmitStatus("error");
+      setErrorMessage(
+        "The enquiry gateway is not configured. Please email our operations desk directly."
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus("idle");
     setErrorMessage("");
 
     try {
-      let recaptchaToken = "";
-      if (integrationsConfig.recaptcha.enabled && window.grecaptcha) {
+      // reCAPTCHA v3 runs only in the browser before submit (free Web3Forms plan — do not send token to Web3Forms).
+      if (integrationsConfig.recaptcha.enabled) {
+        if (!window.grecaptcha) {
+          setSubmitStatus("error");
+          setErrorMessage(
+            "Security verification could not load. Please refresh the page or contact our operations desk directly."
+          );
+          return;
+        }
         try {
           await new Promise<void>((resolve) => window.grecaptcha?.ready(() => resolve()));
-          recaptchaToken = await window.grecaptcha.execute(
+          const recaptchaToken = await window.grecaptcha.execute(
             integrationsConfig.recaptcha.siteKey,
             { action: integrationsConfig.recaptcha.actionName }
           );
+          if (!recaptchaToken) {
+            setSubmitStatus("error");
+            setErrorMessage("Security verification failed. Please try again.");
+            return;
+          }
         } catch {
-          // Gracefully continue with honeypot if reCAPTCHA script blocked by client
+          setSubmitStatus("error");
+          setErrorMessage(
+            "Security verification failed. Please try again or contact our operations desk directly."
+          );
+          return;
         }
       }
-
-      const accessKey = integrationsConfig.web3forms.accessKey;
 
       const payload: Record<string, string> = {
         access_key: accessKey,
@@ -91,10 +114,6 @@ export function EnquiryForm() {
         message: formData.requirements,
         botcheck: formData.botcheck
       };
-
-      if (recaptchaToken) {
-        payload["g-recaptcha-response"] = recaptchaToken;
-      }
 
       const response = await fetch(integrationsConfig.web3forms.endpoint, {
         method: "POST",
@@ -358,6 +377,29 @@ export function EnquiryForm() {
                 </>
               )}
             </button>
+            {integrationsConfig.recaptcha.enabled && (
+              <p className="mt-3 text-[10px] text-[#5A6A78] leading-relaxed max-w-xl">
+                This site is protected by reCAPTCHA and the Google{" "}
+                <a
+                  href="https://policies.google.com/privacy"
+                  className="underline hover:text-[#292929]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Privacy Policy
+                </a>{" "}
+                and{" "}
+                <a
+                  href="https://policies.google.com/terms"
+                  className="underline hover:text-[#292929]"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Terms of Service
+                </a>{" "}
+                apply.
+              </p>
+            )}
           </div>
         </form>
       )}

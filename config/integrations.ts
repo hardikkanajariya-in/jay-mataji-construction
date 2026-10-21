@@ -1,9 +1,7 @@
 /**
  * Centralized Integrations Configuration
- * Manages public frontend integration settings for Web3Forms and Google reCAPTCHA v3.
- *
- * NOTE: Never expose private secrets (such as reCAPTCHA secret keys) in this file.
- * Private secret verification must always remain on a dedicated backend/worker.
+ * Web3Forms (email delivery) and Google reCAPTCHA v3 (client-side submit gate only).
+ * reCAPTCHA tokens are not sent to Web3Forms (reCAPTCHA there is a paid feature).
  */
 
 export interface IntegrationsConfig {
@@ -29,7 +27,6 @@ export const integrationsConfig: IntegrationsConfig = {
     fromName: "JMC Operations Portal"
   },
   recaptcha: {
-    // Public Google reCAPTCHA v3 Site Key from environment
     siteKey: process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "",
     actionName: "turnaround_enquiry",
     enabled: Boolean(process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY)

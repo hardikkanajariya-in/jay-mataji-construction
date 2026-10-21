@@ -34,7 +34,7 @@ A multi-page, high-performance static website built for **JAY MATAJI CONSTRUCTIO
 | `/about/` | **About Us** | Corporate background (Est. 2014), operational scope, pan-India refinery footprint (Jamnagar, Mangalore, Mumbai, Vizag, Vadinar, Bhatinda, Barauni, Haldia, Kochi, Assam, Nagothane). |
 | `/services/` | **Services** | Documented service packages categorized into Static Equipment, Plant Maintenance & Servicing, and Site Execution & Manpower. |
 | `/projects/` | **Project Experience** | Data-driven interactive project register of all 49 contracts with real-time text search, year filter (2014–2026), category filter, sorting, and record detail inspector modal. |
-| `/contact/` | **Contact & Mobilization** | Practical industrial requisition form with input validation and static-compatible pre-formatted `mailto:` dispatch to operations. |
+| `/contact/` | **Contact & Mobilization** | Industrial requisition form with validation, Web3Forms email delivery, Google reCAPTCHA v3, and honeypot spam protection. |
 
 ---
 
@@ -87,6 +87,16 @@ pnpm lint
 pnpm build
 ```
 This builds the site and exports static HTML, CSS, JavaScript, and assets into the `out/` directory ready for deployment on any static hosting platform (e.g., Nginx, Apache, Cloudflare Pages, AWS S3, GitHub Pages, Vercel).
+
+### Contact form (Web3Forms + reCAPTCHA v3)
+
+1. Copy `.env.example` to `.env.local` and set:
+   - `NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY` — from [Web3Forms](https://web3forms.com/)
+   - `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` — optional; used only in the browser before submit (not sent to Web3Forms on the free plan)
+2. In the Web3Forms dashboard, leave **reCAPTCHA disabled** for this form.
+3. Rebuild after changing any `NEXT_PUBLIC_*` variable (`pnpm build`), since values are inlined at build time.
+
+Form logic lives in `components/contact/EnquiryForm.tsx`; public integration settings are in `config/integrations.ts`.
 
 ---
 
